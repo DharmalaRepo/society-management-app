@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>{{ data ? 'Edit Staff' : 'Add Staff' }}</h2>
+
+<mat-dialog-content [formGroup]="form">
+  <mat-form-field appearance="fill" class="w-full">
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="w-full">
+    <mat-label>Role</mat-label>
+    <mat-select formControlName="role">
+      <mat-option value="Manager">Manager</mat-option>
+      <mat-option value="Cleaner">Cleaner</mat-option>
+      <mat-option value="Security">Security</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="w-full">
+    <mat-label>Department</mat-label>
+    <input matInput formControlName="department" />
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-flat-button color="primary" (click)="onSave()">Save</button>
+</mat-dialog-actions>

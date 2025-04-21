@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>{{ data?.id ? 'Edit' : 'Add' }} Vehicle</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()" mat-dialog-content>
+  <mat-form-field appearance="fill" class="w-full">
+    <mat-label>Owner Name</mat-label>
+    <input matInput formControlName="owner" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="w-full">
+    <mat-label>Vehicle Number</mat-label>
+    <input matInput formControlName="number" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="w-full">
+    <mat-label>Vehicle Type</mat-label>
+    <input matInput formControlName="type" />
+  </mat-form-field>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-flat-button color="primary" type="submit">Save</button>
+  </mat-dialog-actions>
+</form>

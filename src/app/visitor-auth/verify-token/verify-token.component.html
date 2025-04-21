@@ -1,0 +1,17 @@
+<mat-card>
+  <form [formGroup]="form" (ngSubmit)="onVerify()">
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Token ID</mat-label>
+      <input matInput formControlName="tokenId" required />
+    </mat-form-field>
+
+    <button mat-flat-button color="primary" type="submit">Verify Token</button>
+  </form>
+
+  <div *ngIf="tokenDetails">
+    <p><strong>Visitor:</strong> {{ tokenDetails.visitorName }}</p>
+    <p><strong>Contact:</strong> {{ tokenDetails.contact }}</p>
+    <p><strong>Purpose:</strong> {{ tokenDetails.purpose }}</p>
+    <p><strong>Valid Till:</strong> {{ tokenDetails.validTill }}</p>
+  </div>
+</mat-card>

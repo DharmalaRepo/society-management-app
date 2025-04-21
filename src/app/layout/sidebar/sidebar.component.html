@@ -1,0 +1,26 @@
+<div class="sidebar-scroll">
+  <mat-nav-list [ngClass]="{ 'collapsed': collapsed }">
+    <mat-accordion [multi]="false" class="sidebar-accordion">
+      <ng-container *ngFor="let section of sidebarSections; let i = index">
+        <ng-container *ngIf="visibleChildren(section).length > 0">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-icon>{{ section.icon }}</mat-icon>
+              <span>{{ section.label }}</span>
+            </mat-expansion-panel-header>
+
+            <mat-nav-list>
+              <a
+                mat-list-item
+                *ngFor="let child of visibleChildren(section)"
+                [routerLink]="child.route"
+              >
+                {{ child.label }}
+              </a>
+            </mat-nav-list>
+          </mat-expansion-panel>
+        </ng-container>
+      </ng-container>
+    </mat-accordion>
+  </mat-nav-list>
+</div>

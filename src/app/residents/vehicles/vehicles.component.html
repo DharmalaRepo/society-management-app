@@ -1,0 +1,18 @@
+<div class="header">
+  <h2>Resident Vehicles</h2>
+  <button mat-flat-button color="primary" (click)="openDialog()">Add Vehicle</button>
+</div>
+
+<div *ngIf="vehicles.length === 0" class="text-center">No vehicles recorded.</div>
+
+<ul>
+  <li *ngFor="let vehicle of vehicles">
+    <strong>{{ vehicle.owner }}</strong> - {{ vehicle.number }}
+    <button mat-icon-button (click)="openDialog(vehicle)">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button color="warn" (click)="deleteVehicle(vehicle.id ?? '')">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </li>
+</ul>

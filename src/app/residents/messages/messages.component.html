@@ -1,0 +1,18 @@
+<div class="header">
+  <h2>Broadcast Messages</h2>
+  <button mat-flat-button color="primary" (click)="openDialog()">Add Message</button>
+</div>
+
+<div *ngIf="messages.length === 0" class="text-center">No messages available.</div>
+
+<ul>
+  <li *ngFor="let message of messages">
+    <strong>{{ message.title }}</strong> - {{ message.body }}
+    <button mat-icon-button (click)="openDialog(message)">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button color="warn" (click)="deleteMessage(message.id ?? '')">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </li>
+</ul>

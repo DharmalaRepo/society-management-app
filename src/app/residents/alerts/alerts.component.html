@@ -1,0 +1,17 @@
+<div class="alerts-container">
+  <h2>Alerts & Reminders</h2>
+  <button mat-flat-button color="primary" (click)="openDialog()">Add Alert</button>
+
+  <mat-list *ngIf="alerts.length > 0">
+    <mat-list-item *ngFor="let alert of alerts">
+      {{ alert.title }} - {{ alert.date | date }}
+      <button mat-icon-button (click)="openDialog(alert)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" (click)="deleteAlert(alert.id!)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-list-item>
+  </mat-list>
+  <p *ngIf="alerts.length === 0">No alerts yet.</p>
+</div>

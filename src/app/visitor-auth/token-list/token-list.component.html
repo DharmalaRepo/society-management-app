@@ -1,0 +1,32 @@
+<mat-card>
+  <mat-card-title>Visitor Tokens</mat-card-title>
+  <mat-table [dataSource]="tokenList" class="w-full mt-4">
+
+    <ng-container matColumnDef="token">
+      <mat-header-cell *matHeaderCellDef>Token</mat-header-cell>
+      <mat-cell *matCellDef="let token">{{ token.token }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="visitor">
+      <mat-header-cell *matHeaderCellDef>Visitor</mat-header-cell>
+      <mat-cell *matCellDef="let token">{{ token.visitorName }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="validTill">
+      <mat-header-cell *matHeaderCellDef>Valid Till</mat-header-cell>
+      <mat-cell *matCellDef="let token">{{ token.validTill | date }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let token">
+        <button mat-button color="primary" (click)="goToDetails(token.id)">
+          View Details
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+</mat-card>

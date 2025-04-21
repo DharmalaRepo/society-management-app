@@ -1,0 +1,15 @@
+<mat-card *ngIf="tokenNotFound" color="warn" class="p-4 text-red-600">
+  ❌ Token not found or may have been deleted.
+</mat-card>
+
+<ng-container *ngIf="!tokenNotFound && token">
+  <mat-card *ngIf="token">
+    <mat-card-title>Token Details</mat-card-title>
+    <mat-card-content>
+      <p><strong>Token:</strong> {{ token.id }}</p>
+      <p><strong>Visitor Name:</strong> {{ token.visitorName }}</p>
+      <p><strong>Valid Until:</strong> {{ token.validTill | date }}</p>
+      <p><strong>Status:</strong> {{ token.status }}</p>
+    </mat-card-content>
+  </mat-card>
+</ng-container>

@@ -1,0 +1,28 @@
+.sidebar-scroll {
+  background-color: #87CEEB; // Amber 400
+  color: #000; // Optional: Make text more readable
+  height: 100vh;
+  overflow-y: auto;
+}
+
+mat-nav-list {
+  background-color: transparent; // Let .sidebar-scroll define color
+}
+
+mat-expansion-panel {
+  background-color: transparent;
+  box-shadow: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+mat-expansion-panel-header {
+  color: #000;
+}
+
+a.mat-list-item {
+  color: #000;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+}

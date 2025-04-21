@@ -1,0 +1,11 @@
+<div class="p-4">
+  <button mat-flat-button color="primary" (click)="openTaskDialog()">+ Assign Task</button>
+
+  <mat-card class="mt-4" *ngFor="let task of taskList">
+    <mat-card-title>{{ task.title }}</mat-card-title>
+    <mat-card-content>
+      <p>{{ task.description }}</p>
+      <p><strong>Due:</strong> {{ task.dueDate | date }}</p>
+    </mat-card-content>
+  </mat-card>
+</div>

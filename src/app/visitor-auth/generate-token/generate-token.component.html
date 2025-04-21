@@ -1,0 +1,23 @@
+<mat-card>
+  <mat-card-title>{{ editingId ? 'Edit Visitor Token' : 'Generate Visitor Token' }}</mat-card-title>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Visitor Name</mat-label>
+      <input matInput formControlName="visitorName" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Contact Number</mat-label>
+      <input matInput formControlName="contactNumber" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Valid Till</mat-label>
+      <input matInput type="datetime-local" formControlName="validTill" />
+    </mat-form-field>
+
+    <button mat-flat-button color="primary" type="submit">
+      {{ editingId ? 'Update Token' : 'Generate Token' }}
+    </button>
+  </form>
+</mat-card>

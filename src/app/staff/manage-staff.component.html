@@ -1,0 +1,16 @@
+<div class="header">
+  <h2>Staff Directory</h2>
+  <button mat-flat-button color="primary" (click)="openDialog()">Add Staff</button>
+</div>
+
+<mat-list>
+  <mat-list-item *ngFor="let staff of staffList">
+    {{ staff.name }}
+    <button mat-icon-button color="accent" (click)="openDialog(staff)">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button color="warn" (click)="deleteStaff(staff.id)">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-list-item>
+</mat-list>

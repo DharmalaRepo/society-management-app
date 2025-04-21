@@ -1,0 +1,11 @@
+<mat-toolbar color="primary" class="header">
+  <div class="header-left">
+    <mat-icon (click)="toggleSidebar.emit()">menu</mat-icon>
+    <span class="society-name">🏡 RGN303 Society</span>
+  </div>
+
+  <div class="header-right">
+    <span>Hello {{ user?.username }}</span>
+    <button mat-button (click)="logout()">Logout</button>
+  </div>
+</mat-toolbar>

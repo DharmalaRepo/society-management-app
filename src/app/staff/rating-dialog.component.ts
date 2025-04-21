@@ -1,0 +1,1 @@
+/* TypeScript logic for RatingDialogComponent */

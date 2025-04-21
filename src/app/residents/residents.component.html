@@ -1,0 +1,20 @@
+<div class="toolbar">
+  <button mat-flat-button color="primary" (click)="openDialog()">Add Resident</button>
+</div>
+
+<mat-list *ngIf="residents.length > 0">
+  <mat-list-item *ngFor="let resident of residents">
+    <div>
+      <strong>{{ resident.name }}</strong> - {{ resident.flatNumber }}<br />
+      Email: {{ resident.email }} | Phone: {{ resident.phone }}
+    </div>
+    <button mat-icon-button (click)="openDialog(resident)">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button *ngIf="resident.id" (click)="deleteResident(resident.id)">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-list-item>
+</mat-list>
+
+<p *ngIf="residents.length === 0" class="text-center text-muted">No residents found.</p>

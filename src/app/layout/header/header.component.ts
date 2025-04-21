@@ -1,0 +1,37 @@
+import { Component, EventEmitter, Output, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { RouterModule } from '@angular/router';
+
+@Component({
+  selector: 'app-header',
+  standalone: true,
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss'],
+  imports: [CommonModule, MatToolbarModule, MatIconModule, RouterModule],
+})
+export class HeaderComponent {
+  private auth = inject(AuthService);
+  user: any;
+  username = '';
+  societyName = '';
+
+  @Output() toggleSidebar = new EventEmitter<void>();
+
+  ngOnInit() {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    this.username = user.username || 'User';
+    this.societyName = user.societyId || 'N/A';
+  }
+
+  onToggleSidebar() {
+    this.toggleSidebar.emit();
+  }
+
+  logout() {
+    this.auth.logout(); // redirect inside logout()
+  }
+}
