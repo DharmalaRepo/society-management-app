@@ -4,7 +4,7 @@
 
   <mat-list *ngIf="alerts.length > 0">
     <mat-list-item *ngFor="let alert of alerts">
-      {{ alert.title }} - {{ alert.date | date }}
+      {{ alert.title }} - {{ alert.triggerDate | date }}
       <button mat-icon-button (click)="openDialog(alert)">
         <mat-icon>edit</mat-icon>
       </button>

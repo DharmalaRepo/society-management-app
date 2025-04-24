@@ -1,40 +1,72 @@
+
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { Vehicle } from 'src/app/core/models/vehicle.model';
-import { ResidentService } from 'src/app/core/services/resident.service';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
 import { VehicleDialogComponent } from './vehicle-dialog.component';
+import { ResidentService } from 'src/app/core/services/resident.service';
+import { Vehicle } from 'src/app/core/models/vehicle.model';
 
 @Component({
   selector: 'app-vehicles',
   standalone: true,
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    MatDialogModule,
+    MatTableModule,
+    MatSortModule,
+    MatInputModule,
+    FormsModule,
+  ],
   templateUrl: './vehicles.component.html',
-  imports: [CommonModule, MatDialogModule, MatButtonModule, MatIconModule]
+  styleUrl: './vehicles.component.scss',
 })
 export class VehiclesComponent {
   vehicles: Vehicle[] = [];
-  private service = inject(ResidentService);
-  private dialog = inject(MatDialog);
+  displayedColumns = ['flatNumber', 'vehicleNumber', 'vehicleType', 'brand', 'color', 'residentId', 'dates', 'actions'];
+  dataSource = new MatTableDataSource<Vehicle>();
+  filterValue: string = '';
 
-  ngOnInit() {
+  private dialog = inject(MatDialog);
+  private service = inject(ResidentService);
+
+  constructor() {
     this.fetchVehicles();
   }
 
   fetchVehicles() {
-    this.service.getVehicles().subscribe(data => this.vehicles = data);
+    this.service.getVehicles().subscribe(data => {
+      this.vehicles = data;
+      this.dataSource.data = data;
+    });
   }
 
-  openDialog(existingVehicle?: Vehicle) {
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  openDialog(vehicle?: Vehicle): void {
     const dialogRef = this.dialog.open(VehicleDialogComponent, {
-      data: existingVehicle || null
+      width: '500px',
+      data: vehicle || null
     });
+
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        existingVehicle
-          ? this.service.updateVehicle(existingVehicle.id!, result).subscribe(() => this.fetchVehicles())
-          : this.service.createVehicle(result).subscribe(() => this.fetchVehicles());
+        const operation = vehicle?.id
+          ? this.service.updateVehicle(vehicle.id, result)
+          : this.service.createVehicle(result);
+        operation.subscribe(() => this.fetchVehicles());
       }
     });
   }

@@ -27,6 +27,11 @@ export const routes: Routes = [
         path: 'visitor-auth',
         loadChildren: () =>
           import('./visitor-auth/visitor-auth.routes').then(m => m.default)
+      },
+      {
+        path: 'society-management',
+        loadChildren: () =>
+          import('./society-management/society-management.routes').then(m => m.default)
       }
     ]
   },

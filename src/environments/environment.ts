@@ -8,5 +8,11 @@ export const environment = {
   financeApiUrl: 'http://localhost:9094',
   grievanceApiUrl: 'http://localhost:9095',
   eventApiUrl: 'http://localhost:9096',
-  staffApiUrl: 'http://localhost:9097'
+  staffApiUrl: 'http://localhost:9097',
+  basicAuth: {
+      username: 'admin',
+      password: 'admin123'
+    }
+
+
 };

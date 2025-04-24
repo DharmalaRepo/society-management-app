@@ -35,7 +35,7 @@ export class AlertDialogComponent {
     this.form = this.fb.group({
       title: [data?.title || '', Validators.required],
       message: [data?.message || '', Validators.required],
-      date: [data?.date || '', Validators.required],
+      date: [data?.triggerDate || '', Validators.required],
     });
   }
 

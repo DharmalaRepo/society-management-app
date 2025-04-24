@@ -33,8 +33,8 @@ export class ResidentFormDialogComponent {
       name: [this.data?.name || '', Validators.required],
       flatNumber: [this.data?.flatNumber || '', Validators.required],
       email: [this.data?.email || '', [Validators.required, Validators.email]],
-      phone: [this.data?.phone || '', Validators.required],
-      apartment: [this.data?.apartment || '', Validators.required]  // Add this line
+      phone: [this.data?.mobileNumber || '', Validators.required],
+      apartment: [this.data?.flatNumber || '', Validators.required]  // Add this line
     });
   }
 

@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
 
@@ -8,6 +8,12 @@ export class DefaulterService {
   private baseUrl = environment.financeApiUrl + '/api/defaulters';
 
   constructor(private http: HttpClient) {}
+
+    private getAuthHeaders(): HttpHeaders {
+        const { username, password } = environment.basicAuth;
+        const basicAuth = 'Basic ' + btoa(`${username}:${password}`);
+        return new HttpHeaders({ Authorization: basicAuth });
+    }
 
   getAll(societyId: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}?societyId=${societyId}`);

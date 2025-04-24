@@ -6,7 +6,7 @@
   <mat-list-item *ngFor="let resident of residents">
     <div>
       <strong>{{ resident.name }}</strong> - {{ resident.flatNumber }}<br />
-      Email: {{ resident.email }} | Phone: {{ resident.phone }}
+      Email: {{ resident.email }} | Phone: {{ resident.mobileNumber }}
     </div>
     <button mat-icon-button (click)="openDialog(resident)">
       <mat-icon>edit</mat-icon>

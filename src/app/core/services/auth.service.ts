@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -10,6 +10,12 @@ export class AuthService {
   private readonly apiUrl = environment.loginApiUrl;
 
   constructor(private http: HttpClient, private router: Router) {}
+
+    private getAuthHeaders(): HttpHeaders {
+        const { username, password } = environment.basicAuth;
+        const basicAuth = 'Basic ' + btoa(`${username}:${password}`);
+        return new HttpHeaders({ Authorization: basicAuth });
+    }
 
   /* login(credentials: { username: string; password: string; societyId: string  }): Observable<any> {
     const { username, password } = credentials;

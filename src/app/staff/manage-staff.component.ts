@@ -21,7 +21,7 @@ import { StaffFormDialogComponent } from './dialogs/staff-form-dialog.component'
       MatButtonModule,
       MatDialogModule,
       RouterModule,
-      StaffFormDialogComponent // if it's standalone
+      StaffFormDialogComponent
     ],
 })
 export class ManageStaffComponent {

@@ -62,10 +62,11 @@ export class SidebarComponent {
         label: 'Society Management',
         icon: 'apartment',
         children: [
-          { label: 'Parking Management', route: '/society/parking'},
-          { label: 'Maintenance Settings', route: '/society/maintenance' },
-          { label: 'Flat Management', route: '/society/flats' },
-          { label: 'Amenity Management', route: '/society/amenities' }
+          { label: 'Society Master', route: '/society-management/master' },
+          { label: 'Flats', route: '/society-management/flats' },
+          { label: 'Amenities', route: '/society-management/amenities' },
+          { label: 'Parking', route: '/society-management/parking' },
+          { label: 'Maintenance', route: '/society-management/maintenance' },
         ]
       },
      {

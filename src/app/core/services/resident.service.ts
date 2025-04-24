@@ -1,6 +1,5 @@
-// src/app/core/services/resident.service.ts
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { Message } from '../models/message.model';
@@ -11,74 +10,140 @@ import { Resident } from 'src/app/core/models/resident.model';
 
 @Injectable({ providedIn: 'root' })
 export class ResidentService {
-  private baseUrl = environment.residentApiUrl + '/api/residents';
+  private baseUrl = environment.residentApiUrl ;
 
   constructor(private http: HttpClient) {}
 
+    private getAuthHeaders(): HttpHeaders {
+        const { username, password } = environment.basicAuth;
+        const basicAuth = 'Basic ' + btoa(`${username}:${password}`);
+        return new HttpHeaders({ Authorization: basicAuth });
+    }
+
   getAll(): Observable<any[]> {
-    return this.http.get<any[]>(this.baseUrl);
-  }
+    return this.http.get<any[]>(this.baseUrl, {
+                                                    headers: this.getAuthHeaders()
+                                                  });
+                                                }
 
   create(resident: any): Observable<any> {
-    return this.http.post(this.baseUrl, resident);
-  }
+    return this.http.post(this.baseUrl, resident, {
+                                                        headers: this.getAuthHeaders()
+                                                      });
+                                                    }
 
   update(id: string, resident: any): Observable<any> {
-    return this.http.put(`${this.baseUrl}/${id}`, resident);
-  }
+    return this.http.put(`${this.baseUrl}/${id}`, resident, {
+                                                                  headers: this.getAuthHeaders()
+                                                                });
+                                                              }
 
   delete(id: string): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${id}`);
-  }
+    return this.http.delete(`${this.baseUrl}/${id}`, {
+                                                           headers: this.getAuthHeaders()
+                                                         });
+                                                       }
 
   // Guest
-  getGuests(): Observable<Guest[]> { return this.http.get<Guest[]>(`${this.baseUrl}/api/guests`); }
-  createGuest(guest: Guest): Observable<any> { return this.http.post(`${this.baseUrl}/api/guests`, guest); }
-  updateGuest(id: string, guest: Guest): Observable<any> { return this.http.put(`${this.baseUrl}/api/guests/${id}`, guest); }
-  deleteGuest(id: string): Observable<any> { return this.http.delete(`${this.baseUrl}/api/guests/${id}`); }
+  getGuests(): Observable<Guest[]> { return this.http.get<Guest[]>(`${this.baseUrl}/api/guests`, {
+        headers: this.getAuthHeaders()
+      });
+    }
+  createGuest(guest: Guest): Observable<any> { return this.http.post(`${this.baseUrl}/api/guests`, guest, {
+        headers: this.getAuthHeaders()
+      });
+    }
+  updateGuest(id: string, guest: Guest): Observable<any> { return this.http.put(`${this.baseUrl}/api/guests/${id}`, guest, {
+        headers: this.getAuthHeaders()
+      });
+    }
+  deleteGuest(id: string): Observable<any> { return this.http.delete(`${this.baseUrl}/api/guests/${id}`, {
+        headers: this.getAuthHeaders()
+      });
+    }
 
   // Messages
-  getMessages(): Observable<Message[]> { return this.http.get<Message[]>(`${this.baseUrl}/api/messages`); }
-  createMessage(msg: Message): Observable<any> { return this.http.post(`${this.baseUrl}/api/messages`, msg); }
-  updateMessage(id: string, msg: Message): Observable<any> { return this.http.put(`${this.baseUrl}/api/messages/${id}`, msg); }
-  deleteMessage(id: string): Observable<any> { return this.http.delete(`${this.baseUrl}/api/messages/${id}`); }
+  getMessages(): Observable<Message[]> { return this.http.get<Message[]>(`${this.baseUrl}/api/messages`, {
+        headers: this.getAuthHeaders()
+      });
+    }
+  createMessage(msg: Message): Observable<any> { return this.http.post(`${this.baseUrl}/api/messages`, msg, {
+        headers: this.getAuthHeaders()
+      });
+    }
+  updateMessage(id: string, msg: Message): Observable<any> { return this.http.put(`${this.baseUrl}/api/messages/${id}`, msg, {
+        headers: this.getAuthHeaders()
+      });
+    }
+  deleteMessage(id: string): Observable<any> { return this.http.delete(`${this.baseUrl}/api/messages/${id}`, {
+        headers: this.getAuthHeaders()
+      });
+    }
 
   // Vehicles
-  getVehicles(): Observable<Vehicle[]> { return this.http.get<Vehicle[]>(`${this.baseUrl}/api/vehicles`); }
-  createVehicle(vehicle: Vehicle): Observable<any> { return this.http.post(`${this.baseUrl}/api/vehicles`, vehicle); }
-  updateVehicle(id: string, vehicle: Vehicle): Observable<any> { return this.http.put(`${this.baseUrl}/api/vehicles/${id}`, vehicle); }
-  deleteVehicle(id: string): Observable<any> { return this.http.delete(`${this.baseUrl}/api/vehicles/${id}`); }
+  getVehicles(): Observable<Vehicle[]> { return this.http.get<Vehicle[]>(`${this.baseUrl}/api/vehicles`, {
+        headers: this.getAuthHeaders()
+      });
+    }
+  createVehicle(vehicle: Vehicle): Observable<any> { return this.http.post(`${this.baseUrl}/api/vehicles`, vehicle, {
+        headers: this.getAuthHeaders()
+      });
+    }
+  updateVehicle(id: string, vehicle: Vehicle): Observable<any> { return this.http.put(`${this.baseUrl}/api/vehicles/${id}`, vehicle, {
+                                                                                                                                           headers: this.getAuthHeaders()
+                                                                                                                                         });
+                                                                                                                                       }
+  deleteVehicle(id: string): Observable<any> { return this.http.delete(`${this.baseUrl}/api/vehicles/${id}`, {
+                                                                                                                   headers: this.getAuthHeaders()
+                                                                                                                 });
+                                                                                                               }
 
    getAlerts(): Observable<Alert[]> {
-      return this.http.get<Alert[]>(`${this.baseUrl}/api/alerts`);
-    }
+      return this.http.get<Alert[]>(`${this.baseUrl}/api/alerts`, {
+                                                                        headers: this.getAuthHeaders()
+                                                                      });
+                                                                    }
 
     createAlert(alert: Alert): Observable<any> {
-      return this.http.post(`${this.baseUrl}/api/alerts`, alert);
-    }
+      return this.http.post(`${this.baseUrl}/api/alerts`, alert, {
+                                                                       headers: this.getAuthHeaders()
+                                                                     });
+                                                                   }
 
     updateAlert(id: string, alert: Alert): Observable<any> {
-      return this.http.put(`${this.baseUrl}/api/alerts/${id}`, alert);
-    }
+      return this.http.put(`${this.baseUrl}/api/alerts/${id}`, alert, {
+                                                                            headers: this.getAuthHeaders()
+                                                                          });
+                                                                        }
 
     deleteAlert(id: string): Observable<any> {
-      return this.http.delete(`${this.baseUrl}/api/alerts/${id}`);
-    }
+      return this.http.delete(`${this.baseUrl}/api/alerts/${id}`, {
+                                                                        headers: this.getAuthHeaders()
+                                                                      });
+                                                                    }
 
 
     getResidents(): Observable<Resident[]> {
-        return this.http.get<Resident[]>(`${this.baseUrl}/api/residents`);
-      }
+        return this.http.get<Resident[]>(`${this.baseUrl}/api/residents`, {
+                                                                                headers: this.getAuthHeaders()
+                                                                              });
+                                                                            }
 
       createResident(payload: Resident): Observable<any> {
-        return this.http.post(`${this.baseUrl}/api/residents`, payload);
-      }
+        return this.http.post(`${this.baseUrl}/api/residents`, payload, {
+                                                                              headers: this.getAuthHeaders()
+                                                                            });
+                                                                          }
 
       updateResident(id: string, payload: Resident): Observable<any> {
-        return this.http.put(`${this.baseUrl}/api/residents/${id}`, payload);
-      }
+        return this.http.put(`${this.baseUrl}/api/residents/${id}`, payload, {
+                                                                                   headers: this.getAuthHeaders()
+                                                                                 });
+                                                                               }
 
       deleteResident(id: string): Observable<any> {
-        return this.http.delete(`${this.baseUrl}/api/residents/${id}`);
-      }
+        return this.http.delete(`${this.baseUrl}/api/residents/${id}`, {
+                                                                             headers: this.getAuthHeaders()
+                                                                           });
+                                                                         }
 }
