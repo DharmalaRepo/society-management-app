@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { Resident } from 'src/app/core/models/resident.model';
+import { Resident } from 'src/app/core/models/resident/resident.model';
 import { ResidentFormDialogComponent } from './resident-form-dialog.component';
 import { ResidentService } from 'src/app/core/services/resident.service';
 

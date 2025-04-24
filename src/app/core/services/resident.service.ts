@@ -2,11 +2,11 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { Message } from '../models/message.model';
-import { Guest } from '../models/guest.model';
-import { Vehicle } from '../models/vehicle.model';
-import { Alert } from '../models/alert.model';
-import { Resident } from 'src/app/core/models/resident.model';
+import { BroadcastMessage } from '../models/resident/broadcast-message.model';
+import { Guest } from '../models/resident/guest.model';
+import { Vehicle } from '../models/resident/vehicle.model';
+import { AlertReminder } from '../models/resident/alert-reminder.model';
+import { Resident } from 'src/app/core/models/resident/resident.model';
 
 @Injectable({ providedIn: 'root' })
 export class ResidentService {
@@ -63,15 +63,15 @@ export class ResidentService {
     }
 
   // Messages
-  getMessages(): Observable<Message[]> { return this.http.get<Message[]>(`${this.baseUrl}/api/messages`, {
+  getMessages(): Observable<BroadcastMessage[]> { return this.http.get<BroadcastMessage[]>(`${this.baseUrl}/api/messages`, {
         headers: this.getAuthHeaders()
       });
     }
-  createMessage(msg: Message): Observable<any> { return this.http.post(`${this.baseUrl}/api/messages`, msg, {
+  createMessage(msg: BroadcastMessage): Observable<any> { return this.http.post(`${this.baseUrl}/api/messages`, msg, {
         headers: this.getAuthHeaders()
       });
     }
-  updateMessage(id: string, msg: Message): Observable<any> { return this.http.put(`${this.baseUrl}/api/messages/${id}`, msg, {
+  updateMessage(id: string, msg: BroadcastMessage): Observable<any> { return this.http.put(`${this.baseUrl}/api/messages/${id}`, msg, {
         headers: this.getAuthHeaders()
       });
     }
@@ -98,19 +98,19 @@ export class ResidentService {
                                                                                                                  });
                                                                                                                }
 
-   getAlerts(): Observable<Alert[]> {
-      return this.http.get<Alert[]>(`${this.baseUrl}/api/alerts`, {
+   getAlerts(): Observable<AlertReminder[]> {
+      return this.http.get<AlertReminder[]>(`${this.baseUrl}/api/alerts`, {
                                                                         headers: this.getAuthHeaders()
                                                                       });
                                                                     }
 
-    createAlert(alert: Alert): Observable<any> {
+    createAlert(alert: AlertReminder): Observable<any> {
       return this.http.post(`${this.baseUrl}/api/alerts`, alert, {
                                                                        headers: this.getAuthHeaders()
                                                                      });
                                                                    }
 
-    updateAlert(id: string, alert: Alert): Observable<any> {
+    updateAlert(id: string, alert: AlertReminder): Observable<any> {
       return this.http.put(`${this.baseUrl}/api/alerts/${id}`, alert, {
                                                                             headers: this.getAuthHeaders()
                                                                           });

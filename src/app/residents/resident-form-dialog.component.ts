@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { Resident } from 'src/app/core/models/resident.model';
+import { Resident } from 'src/app/core/models/resident/resident.model';
 
 @Component({
   selector: 'app-resident-form-dialog',

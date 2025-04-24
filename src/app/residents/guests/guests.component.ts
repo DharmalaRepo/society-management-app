@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { Guest } from 'src/app/core/models/guest.model';
+import { Guest } from 'src/app/core/models/resident/guest.model';
 import { ResidentService } from 'src/app/core/services/resident.service';
 import { GuestDialogComponent } from './guest-dialog.component';
 

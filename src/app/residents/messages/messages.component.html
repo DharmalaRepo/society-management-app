@@ -7,7 +7,7 @@
 
 <ul>
   <li *ngFor="let message of messages">
-    <strong>{{ message.title }}</strong> - {{ message.body }}
+    <strong>{{ message.title }}</strong> - {{ message.message }}
     <button mat-icon-button (click)="openDialog(message)">
       <mat-icon>edit</mat-icon>
     </button>

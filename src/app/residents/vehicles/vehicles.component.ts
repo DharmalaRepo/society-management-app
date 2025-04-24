@@ -1,4 +1,3 @@
-
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
@@ -11,7 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { VehicleDialogComponent } from './vehicle-dialog.component';
 import { ResidentService } from 'src/app/core/services/resident.service';
-import { Vehicle } from 'src/app/core/models/vehicle.model';
+import { Vehicle } from 'src/app/core/models/resident/vehicle.model';
 
 @Component({
   selector: 'app-vehicles',

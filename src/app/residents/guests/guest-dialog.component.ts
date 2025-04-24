@@ -5,7 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { Guest } from 'src/app/core/models/guest.model';
+import { Guest } from 'src/app/core/models/resident/guest.model';
 import { ResidentService } from 'src/app/core/services/resident.service';
 
 @Component({

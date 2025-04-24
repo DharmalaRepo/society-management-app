@@ -7,7 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Inject } from '@angular/core';
 import { ResidentService } from 'src/app/core/services/resident.service';
-import { Message } from 'src/app/core/models/message.model';
+import { BroadcastMessage } from '../../core/models/resident/broadcast-message.model';
 
 @Component({
   selector: 'app-message-dialog',
@@ -29,20 +29,20 @@ export class MessageDialogComponent {
   private dialogRef = inject(MatDialogRef<MessageDialogComponent>);
   private service = inject(ResidentService);
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Partial<Message>) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Partial<BroadcastMessage>) {
     this.form = this.fb.group({
       title: [data?.title || ''],
-      body: [data?.body || '']
+      body: [data?.message || '']
     });
   }
 
   submit() {
     if (this.data?.id) {
-      this.service.updateMessage(this.data.id, this.form.value as Message).subscribe(() => {
+      this.service.updateMessage(this.data.id, this.form.value as BroadcastMessage).subscribe(() => {
         this.dialogRef.close(true);
       });
     } else {
-      this.service.createMessage(this.form.value as Message).subscribe(() => {
+      this.service.createMessage(this.form.value as BroadcastMessage).subscribe(() => {
         this.dialogRef.close(true);
       });
     }
