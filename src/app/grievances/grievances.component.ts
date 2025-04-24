@@ -1,97 +1,67 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, inject } from '@angular/core';
+import { Grievance } from '../core//models/grievances/grievance.model';
+import { GrievanceService } from 'src/app/core/services/grievance.service';
+import { MatDialog } from '@angular/material/dialog';
+import { GrievanceDialogComponent } from './dialogs/grievance-dialog.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatSelectModule } from '@angular/material/select';
-import { HttpClientModule } from '@angular/common/http';
-
-import { GrievanceService } from '../core/services/grievance.service';
-import { GrievanceFormDialogComponent } from './grievance-form-dialog.component';
+import { MatInputModule } from '@angular/material/input';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-grievances',
   standalone: true,
   templateUrl: './grievances.component.html',
-  styleUrls: [],
+  styleUrls: ['./grievances.component.scss'],
   imports: [
     CommonModule,
-    HttpClientModule,
+    FormsModule,
     MatTableModule,
     MatButtonModule,
     MatIconModule,
-    MatDialogModule,
-    MatSnackBarModule,
-    MatSelectModule,
-    FormsModule,
-    ReactiveFormsModule,
-    GrievanceFormDialogComponent
-  ]
+    MatInputModule
+  ],
 })
 export class GrievancesComponent implements OnInit {
-  grievances: any[] = [];
-  filteredGrievances: any[] = [];
-  selectedStatus: string = '';
-  displayedColumns: string[] = ['title', 'description', 'status', 'actions'];
-  societyId: string = JSON.parse(localStorage.getItem('user') || '{}')?.societyId;
+  grievances: Grievance[] = [];
+  displayedColumns: string[] = ['customId', 'description', 'category', 'severity', 'status', 'assignedTo', 'actions'];
+  filter: string = '';
 
-  constructor(
-    private service: GrievanceService,
-    private dialog: MatDialog,
-    private snackBar: MatSnackBar
-  ) {}
+  private service = inject(GrievanceService);
+  private dialog = inject(MatDialog);
 
   ngOnInit(): void {
-    this.fetch();
+    this.fetchGrievances();
   }
 
-  fetch(): void {
-    this.service.getAll(this.societyId).subscribe({
-      next: data => {
-        this.grievances = data;
-        this.applyFilter();
-      },
-      error: () => this.snackBar.open('Failed to load grievances', 'Close', { duration: 3000 })
+  fetchGrievances(): void {
+    this.service.getGrievancesByStatus('1', 'Open').subscribe((data) => {
+      this.grievances = data;
     });
   }
 
-  applyFilter(): void {
-    this.filteredGrievances = this.selectedStatus
-      ? this.grievances.filter(g => g.status === this.selectedStatus)
-      : this.grievances;
-  }
-
-  openDialog(grievance: any = null): void {
-    const dialogRef = this.dialog.open(GrievanceFormDialogComponent, {
-      width: '400px',
-      data: grievance
+  openDialog(existing?: Grievance): void {
+    const dialogRef = this.dialog.open(GrievanceDialogComponent, {
+      data: existing || null,
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        const action = grievance
-          ? this.service.update(grievance.customId, result)
-          : this.service.create({ ...result, societyId: this.societyId });
-
-        action.subscribe({
-          next: () => {
-            this.snackBar.open(grievance ? 'Updated' : 'Submitted', 'Close', { duration: 2000 });
-            this.fetch();
-          }
-        });
+        existing
+          ? this.service.updateGrievanceStatus(existing.id!, result.status, result.assignedTo).subscribe(() => this.fetchGrievances())
+          : this.service.logGrievance(result).subscribe(() => this.fetchGrievances());
       }
     });
   }
 
-  delete(id: number): void {
-    this.service.delete(id).subscribe({
-      next: () => {
-        this.snackBar.open('Deleted', 'Close', { duration: 2000 });
-        this.fetch();
-      }
-    });
+  applyFilter(): Grievance[] {
+    const term = this.filter.trim().toLowerCase();
+    return this.grievances.filter(gr =>
+      gr.grievanceDescription?.toLowerCase().includes(term) ||
+      gr.category?.toLowerCase().includes(term) ||
+      gr.status?.toLowerCase().includes(term)
+    );
   }
 }

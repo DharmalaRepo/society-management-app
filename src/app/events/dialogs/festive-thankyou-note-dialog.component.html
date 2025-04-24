@@ -1,0 +1,23 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="fill">
+    <mat-label>Custom ID</mat-label>
+    <input matInput formControlName="customId" type="number">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Created By</mat-label>
+    <input matInput formControlName="createdBy">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Created Date</mat-label>
+    <input matInput formControlName="createdDate" type="datetime-local">
+  </mat-form-field>
+
+  <mat-checkbox formControlName="active">Active</mat-checkbox>
+
+  <div class="actions">
+    <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">Save</button>
+    <button mat-stroked-button type="button" (click)="dialogRef.close()">Cancel</button>
+  </div>
+</form>

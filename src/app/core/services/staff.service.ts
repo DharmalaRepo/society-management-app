@@ -6,7 +6,7 @@ import { Task, Attendance, Rating, Staff } from '../models/staff.model';
 
 @Injectable({ providedIn: 'root' })
 export class StaffService {
-  private baseUrl = `${environment.staffApiUrl}/api/staff`;
+  private baseUrl = `${environment.staffApiUrl}`;
 
   constructor(private http: HttpClient) {}
 

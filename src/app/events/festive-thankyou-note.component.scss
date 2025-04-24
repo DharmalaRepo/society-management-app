@@ -1,0 +1,15 @@
+mat-card {
+  margin: 20px;
+
+  .toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    gap: 16px;
+  }
+
+  table {
+    width: 100%;
+  }
+}

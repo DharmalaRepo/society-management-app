@@ -129,14 +129,17 @@ export class SidebarComponent {
         label: 'Events & Festive',
         icon: 'celebration',
         children: [
-          { label: 'Events', route: '/events/list'},
-          { label: 'Fund Contributions', route: '/events/fund' },
-          { label: 'Expenses', route: '/events/expenses'},
-          { label: 'Feedback', route: '/events/feedback' },
-          { label: 'Committees', route: '/events/committees' },
-          { label: 'Volunteers', route: '/events/volunteers' },
-          { label: 'Poll Results', route: '/events/polls'},
-          { label: 'Notifications', route: '/events/notifications' }
+          { label: 'Events', route: 'events/events'},
+                          { label: 'Committees', route: 'events/committee' },
+                           { label: 'Expenses', route: 'events/expenses'},
+                           { label: 'Feedback', route: 'events/feedbacks' },
+                          { label: 'Fund Contributions', route: 'events/fund-contributions' },
+                         { label: 'Notifications', route: 'events/notifications' },
+                         { label: 'Polls', route: 'events/polls'},
+                         { label: 'Poll Vote', route: 'events/poll-votes'},
+                          { label: 'Volunteers', route: 'events/volunteers' },
+                          { label: 'Prizes', route: 'events/prizes' },
+                          { label: 'Thank you', route: 'events/thankyou-notes' }
         ]
       },
       {

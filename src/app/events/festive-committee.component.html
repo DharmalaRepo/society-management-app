@@ -1,0 +1,42 @@
+<mat-card>
+  <mat-card-title>
+    Festive Committees
+    <button mat-flat-button color="primary" (click)="openDialog()" class="float-right">
+      <mat-icon>add</mat-icon> Add Committee
+    </button>
+  </mat-card-title>
+
+  <mat-table [dataSource]="committees" class="mat-elevation-z2">
+
+    <ng-container matColumnDef="occasionName">
+      <mat-header-cell *matHeaderCellDef> Occasion </mat-header-cell>
+      <mat-cell *matCellDef="let c"> {{ c.occasionName }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="occasionDate">
+      <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+      <mat-cell *matCellDef="let c"> {{ c.occasionDate | date }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+      <mat-cell *matCellDef="let c"> {{ c.status || '-' }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+      <mat-cell *matCellDef="let c">
+        <button mat-icon-button color="primary" (click)="openDialog(c)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deleteCommittee(c.id!)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+  </mat-table>
+</mat-card>

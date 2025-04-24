@@ -1,0 +1,29 @@
+<h1 mat-dialog-title>{{ data ? 'Edit' : 'Add' }} Festive Committee</h1>
+<div mat-dialog-content [formGroup]="form">
+  <mat-form-field appearance="fill" class="w-full">
+    <mat-label>Occasion ID</mat-label>
+    <input matInput formControlName="occasionId" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="w-full">
+    <mat-label>Society ID</mat-label>
+    <input matInput formControlName="societyId" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="w-full">
+    <mat-label>Occasion Date</mat-label>
+    <input matInput type="date" formControlName="occasionDate" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="w-full">
+    <mat-label>Status</mat-label>
+    <input matInput formControlName="status" />
+  </mat-form-field>
+</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onSave()" [disabled]="form.invalid">
+    {{ data ? 'Update' : 'Create' }}
+  </button>
+</div>

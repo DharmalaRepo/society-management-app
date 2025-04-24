@@ -1,0 +1,36 @@
+<h2 mat-dialog-title>{{ data ? 'Edit Grievance' : 'Log Grievance' }}</h2>
+<form [formGroup]="form" (ngSubmit)="submit()" mat-dialog-content>
+  <mat-form-field appearance="fill" class="w-full">
+    <mat-label>Description</mat-label>
+    <input matInput formControlName="grievanceDescription" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="w-full">
+    <mat-label>Category</mat-label>
+    <input matInput formControlName="category" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="w-full">
+    <mat-label>Severity</mat-label>
+    <mat-select formControlName="severity">
+      <mat-option value="Low">Low</mat-option>
+      <mat-option value="Medium">Medium</mat-option>
+      <mat-option value="High">High</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="w-full">
+    <mat-label>Status</mat-label>
+    <input matInput formControlName="status" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="w-full">
+    <mat-label>Assigned To</mat-label>
+    <input matInput formControlName="assignedTo" />
+  </mat-form-field>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-flat-button color="primary" type="submit">Save</button>
+  </mat-dialog-actions>
+</form>

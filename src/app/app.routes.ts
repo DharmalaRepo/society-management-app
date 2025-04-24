@@ -32,6 +32,16 @@ export const routes: Routes = [
         path: 'society-management',
         loadChildren: () =>
           import('./society-management/society-management.routes').then(m => m.default)
+      },
+      {
+        path: 'grievances',
+        loadChildren: () =>
+          import('./grievances/grievances.routes').then(m => m.grievancesRoutes)
+      },
+      {
+        path: 'events',
+        loadChildren: () =>
+          import('./events/events-festive.routes').then(m => m.default)
       }
     ]
   },
