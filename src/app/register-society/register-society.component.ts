@@ -1,36 +1,30 @@
 import { Component } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { MatExpansionModule } from '@angular/material/expansion';
+import { FormArray, FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSelectModule } from '@angular/material/select';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
-import { SocietyRegistrationRequestDTO } from '../core/models/society-registration/society-registration.model';
-
-import { FormsModule } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-register-society',
   standalone: true,
   imports: [
     CommonModule,
-      FormsModule,
-      ReactiveFormsModule,
-      MatFormFieldModule,
-      MatInputModule,
-      MatSelectModule,
-      MatExpansionModule,
-      MatButtonModule,
-      MatCardModule,
-      NgIf,
-      NgFor
+    ReactiveFormsModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCardModule,
+    MatExpansionModule,
+    MatSelectModule
   ],
   templateUrl: './register-society.component.html',
   styleUrls: ['./register-society.component.scss']
@@ -41,12 +35,6 @@ export class RegisterSocietyComponent {
 
   blocks: string[] = [];
   blockFloorMap: { [block: string]: string[] } = {};
-  flatList: { blockName: string; floor: string; flatNumber: string }[] = [];
-
-  amenitiesList: { name: string; location: string }[] = [];
-  parkingList: { spotNumber: string; type: string }[] = [];
-  expenseCategoriesList: { categoryName: string }[] = [];
-  staffDepartmentsList: { departmentName: string }[] = [];
 
   selectedBlockForFloors = '';
   floorInput = '';
@@ -55,11 +43,20 @@ export class RegisterSocietyComponent {
   selectedFloorForFlats = '';
   flatNumbersInput = '';
 
+  flatList: any[] = [];
+
   amenityInput = '';
+  amenitiesList: string[] = [];
+
   parkingSpotInput = '';
   parkingTypeInput = '';
+  parkingSlotsList: any[] = [];
+
   expenseCategoryInput = '';
+  expenseCategoriesList: string[] = [];
+
   staffDepartmentInput = '';
+  staffDepartmentsList: string[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -77,30 +74,30 @@ export class RegisterSocietyComponent {
         country: [''],
         pincode: ['']
       }),
-      blockNamesInput: ['']
+      blockNamesInput: [''],
+      admin: this.fb.group({
+        name: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+        phone: [''],
+        username: [''],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+      })
     });
   }
 
+  objectKeys(obj: any): string[] {
+    return Object.keys(obj);
+  }
+
   saveBlocks() {
-    const input = this.registerForm.value.blockNamesInput || '';
-    this.blocks = input.split(',')
-      .map((b: string) => b.trim())
-      .map((f: string) => f.trim())
-
-    this.blocks.forEach(block => {
-      if (!this.blockFloorMap[block]) {
-        this.blockFloorMap[block] = [];
-      }
-    });
-
+    const input = this.registerForm.get('blockNamesInput')?.value || '';
+    this.blocks = input.split(',').map((b: string) => b.trim()).filter((b: string) => b);
     this.snackBar.open('Blocks saved!', 'Close', { duration: 2000 });
   }
 
   saveFloors() {
     if (this.selectedBlockForFloors && this.floorInput) {
-      const floors = this.floorInput.split(',')
-        .map(f => f.trim())
-        .filter(f => f);
+      const floors = this.floorInput.split(',').map((f: string) => f.trim()).filter((f: string) => f);
       this.blockFloorMap[this.selectedBlockForFloors] = floors;
       this.floorInput = '';
       this.snackBar.open('Floors saved!', 'Close', { duration: 2000 });
@@ -109,10 +106,7 @@ export class RegisterSocietyComponent {
 
   saveFlats() {
     if (this.selectedBlockForFlats && this.selectedFloorForFlats && this.flatNumbersInput) {
-      const flats = this.flatNumbersInput.split(',')
-        .map(f => f.trim())
-        .filter(f => f);
-
+      const flats = this.flatNumbersInput.split(',').map((f: string) => f.trim()).filter((f: string) => f);
       flats.forEach(flatNumber => {
         this.flatList.push({
           blockName: this.selectedBlockForFlats,
@@ -120,23 +114,25 @@ export class RegisterSocietyComponent {
           flatNumber
         });
       });
-
       this.flatNumbersInput = '';
       this.snackBar.open('Flats saved!', 'Close', { duration: 2000 });
     }
   }
 
   saveAmenity() {
-    if (this.amenityInput) {
-      this.amenitiesList.push({ name: this.amenityInput, location: '' });
+    if (this.amenityInput.trim()) {
+      this.amenitiesList.push(this.amenityInput.trim());
       this.amenityInput = '';
       this.snackBar.open('Amenity added!', 'Close', { duration: 2000 });
     }
   }
 
   saveParking() {
-    if (this.parkingSpotInput && this.parkingTypeInput) {
-      this.parkingList.push({ spotNumber: this.parkingSpotInput, type: this.parkingTypeInput });
+    if (this.parkingSpotInput.trim() && this.parkingTypeInput.trim()) {
+      this.parkingSlotsList.push({
+        spotNumber: this.parkingSpotInput.trim(),
+        type: this.parkingTypeInput.trim()
+      });
       this.parkingSpotInput = '';
       this.parkingTypeInput = '';
       this.snackBar.open('Parking slot added!', 'Close', { duration: 2000 });
@@ -144,99 +140,75 @@ export class RegisterSocietyComponent {
   }
 
   saveExpenseCategory() {
-    if (this.expenseCategoryInput) {
-      this.expenseCategoriesList.push({ categoryName: this.expenseCategoryInput });
+    if (this.expenseCategoryInput.trim()) {
+      this.expenseCategoriesList.push(this.expenseCategoryInput.trim());
       this.expenseCategoryInput = '';
       this.snackBar.open('Expense category added!', 'Close', { duration: 2000 });
     }
   }
 
   saveStaffDepartment() {
-    if (this.staffDepartmentInput) {
-      this.staffDepartmentsList.push({ departmentName: this.staffDepartmentInput });
+    if (this.staffDepartmentInput.trim()) {
+      this.staffDepartmentsList.push(this.staffDepartmentInput.trim());
       this.staffDepartmentInput = '';
       this.snackBar.open('Staff department added!', 'Close', { duration: 2000 });
     }
   }
 
-  objectKeys(obj: any): string[] {
-    return Object.keys(obj);
-  }
-
   onSubmit() {
     if (this.registerForm.invalid) {
       this.registerForm.markAllAsTouched();
+      this.snackBar.open('Please complete required fields.', 'Close', { duration: 3000 });
       return;
     }
 
-    const payload: SocietyRegistrationRequestDTO = {
-      societyMaster: this.registerForm.value.societyMaster,
+    const formData = this.registerForm.value;
+    const payload = {
+      societyMaster: {
+        ...formData.societyMaster,
+        isActive: 1
+      },
       flats: this.flatList.map(flat => ({
-        societyIdentifier: '',
         blockName: flat.blockName,
         floor: flat.floor,
         flatNumber: flat.flatNumber,
-        type: '',
-        areaInSqFt: 0,
-        isActive: 1,
-        occupied: false,
-        id: '',
-        customId: 0
+        isActive: 1
       })),
-      amenities: this.amenitiesList.map(a => ({
-        id: '',
-        customId: 0,
-        societyIdentifier: '',
-        name: a.name,
+      amenities: this.amenitiesList.map(name => ({
+        name,
+        isActive: 1
+      })),
+      parkingSlots: this.parkingSlotsList.map(slot => ({
+        spotNumber: slot.spotNumber,
+        type: slot.type,
+        isActive: 1
+      })),
+      expenseCategories: this.expenseCategoriesList.map(name => ({
+        categoryName: name,
         description: '',
-        location: a.location,
-        isActive: 1
       })),
-      parkingSlots: this.parkingList.map(p => ({
-        id: '',
-        customId: 0,
-        societyIdentifier: '',
-        spotNumber: p.spotNumber,
-        type: p.type,
-        allocatedToFlatNumber: '',
-        isActive: 1,
-        occupied: false
+      staffDepartments: this.staffDepartmentsList.map(name => ({
+        departmentName: name,
+        description: '',
       })),
-      maintenanceSetting: {
-        id: '',
-        customId: 0,
-        societyIdentifier: '',
-        frequency: 'Monthly',
-        amount: 0,
-        dueDate: '2025-01-01',
-        lateFee: 0,
-        isActive: 1
-      },
-      expenseCategories: this.expenseCategoriesList.map(e => ({
-        societyIdentifier: '',
-        categoryName: e.categoryName,
-        description: ''
-      })),
-      staffDepartments: this.staffDepartmentsList.map(d => ({
-        societyIdentifier: '',
-        departmentName: d.departmentName,
-        description: ''
-      }))
+      admin: {
+        ...formData.admin
+      }
     };
 
     this.submitting = true;
 
-    this.http.post(`${environment.societyApiUrl}/api/societies/register`, payload, {
-      responseType: 'text' as 'json'   // <- important line!
-      })
+    this.http.post(`${environment.societyApiUrl}/api/societies/register`, payload, { responseType: 'text' })
       .subscribe({
-        next: () => {
-          this.snackBar.open('Society Registration Successful!', 'Close', { duration: 3000 });
-          this.router.navigate(['/welcome']);
+        next: (response: any) => {
+          this.snackBar.open(`🎉 Society Registered! Your Society ID: ${response}`, 'Close', { duration: 6000 });
+          setTimeout(() => {
+            this.router.navigate(['/welcome']);
+          }, 3000);
         },
         error: (err) => {
+          this.snackBar.open('Registration failed. Please try again.', 'Close', { duration: 4000 });
           console.error(err);
-          this.snackBar.open('Registration failed. Please try again.', 'Close', { duration: 3000 });
           this.submitting = false;
         }
       });

@@ -3,14 +3,15 @@
 
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
 
-    <!-- Society Info -->
+    <!-- Society Information -->
     <mat-expansion-panel expanded>
       <mat-expansion-panel-header>
         <mat-panel-title>Society Information</mat-panel-title>
       </mat-expansion-panel-header>
+
       <div formGroupName="societyMaster">
         <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Society Name</mat-label>
+          <mat-label>Society Name *</mat-label>
           <input matInput formControlName="name" required>
         </mat-form-field>
 
@@ -24,46 +25,84 @@
           <input matInput formControlName="address">
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="half-width">
-          <mat-label>City</mat-label>
-          <input matInput formControlName="city">
+        <div class="half-fields">
+          <mat-form-field appearance="outline">
+            <mat-label>City</mat-label>
+            <input matInput formControlName="city">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>State</mat-label>
+            <input matInput formControlName="state">
+          </mat-form-field>
+        </div>
+
+        <div class="half-fields">
+          <mat-form-field appearance="outline">
+            <mat-label>Country</mat-label>
+            <input matInput formControlName="country">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Pincode</mat-label>
+            <input matInput formControlName="pincode">
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Admin Details -->
+    <mat-expansion-panel expanded>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Admin Details</mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div formGroupName="admin">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Admin Name *</mat-label>
+          <input matInput formControlName="name" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email Address *</mat-label>
+          <input matInput type="email" formControlName="email" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Phone Number</mat-label>
+          <input matInput formControlName="phone">
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="half-width">
-          <mat-label>State</mat-label>
-          <input matInput formControlName="state">
+          <mat-label>Username</mat-label>
+          <input matInput formControlName="username">
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="half-width">
-          <mat-label>Country</mat-label>
-          <input matInput formControlName="country">
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" class="half-width">
-          <mat-label>Pincode</mat-label>
-          <input matInput formControlName="pincode">
+          <mat-label>Password *</mat-label>
+          <input matInput type="password" formControlName="password" required>
         </mat-form-field>
       </div>
     </mat-expansion-panel>
 
-    <!-- Blocks -->
+    <!-- Blocks Input -->
     <mat-expansion-panel expanded>
       <mat-expansion-panel-header>
-        <mat-panel-title>Block Setup</mat-panel-title>
+        <mat-panel-title>Configure Blocks</mat-panel-title>
       </mat-expansion-panel-header>
 
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Enter Block Names (comma separated)</mat-label>
-        <input matInput formControlName="blockNamesInput" placeholder="E.g. A,B,C,D">
+        <input matInput formControlName="blockNamesInput" placeholder="Ex: A,B,C,D">
       </mat-form-field>
 
       <button mat-flat-button color="accent" type="button" (click)="saveBlocks()">Save Blocks</button>
     </mat-expansion-panel>
 
-    <!-- Floors -->
+    <!-- Floors Input -->
     <mat-expansion-panel *ngIf="blocks.length > 0" expanded>
       <mat-expansion-panel-header>
-        <mat-panel-title>Floor Setup</mat-panel-title>
+        <mat-panel-title>Configure Floors</mat-panel-title>
       </mat-expansion-panel-header>
 
       <mat-form-field appearance="outline" class="half-width">
@@ -75,16 +114,16 @@
 
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Enter Floors (comma separated)</mat-label>
-        <input matInput [(ngModel)]="floorInput" [ngModelOptions]="{standalone: true}" placeholder="E.g. 1,2,3,4">
+        <input matInput [(ngModel)]="floorInput" [ngModelOptions]="{standalone: true}" placeholder="Ex: 1,2,3,4">
       </mat-form-field>
 
       <button mat-flat-button color="accent" type="button" (click)="saveFloors()">Save Floors</button>
     </mat-expansion-panel>
 
-    <!-- Flats -->
+    <!-- Flats Input -->
     <mat-expansion-panel *ngIf="blocks.length > 0 && objectKeys(blockFloorMap).length > 0" expanded>
       <mat-expansion-panel-header>
-        <mat-panel-title>Flat Setup</mat-panel-title>
+        <mat-panel-title>Configure Flats</mat-panel-title>
       </mat-expansion-panel-header>
 
       <mat-form-field appearance="outline" class="half-width">
@@ -103,62 +142,62 @@
 
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Enter Flat Numbers (comma separated)</mat-label>
-        <input matInput [(ngModel)]="flatNumbersInput" [ngModelOptions]="{standalone: true}" placeholder="E.g. 101,102,103">
+        <input matInput [(ngModel)]="flatNumbersInput" [ngModelOptions]="{standalone: true}" placeholder="Ex: 101,102,103">
       </mat-form-field>
 
       <button mat-flat-button color="accent" type="button" (click)="saveFlats()">Save Flats</button>
 
       <div *ngIf="flatList.length > 0">
-        <h4>Flats Added:</h4>
+        <h4>🛖 Flats Added:</h4>
         <div *ngFor="let flat of flatList">
           🏠 {{ flat.blockName }} - Floor: {{ flat.floor }} - Flat: {{ flat.flatNumber }}
         </div>
       </div>
     </mat-expansion-panel>
 
-    <!-- Amenities -->
+    <!-- Amenities Input -->
     <mat-expansion-panel expanded>
       <mat-expansion-panel-header>
-        <mat-panel-title>Amenities Setup</mat-panel-title>
+        <mat-panel-title>Configure Amenities</mat-panel-title>
       </mat-expansion-panel-header>
 
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Amenity Name</mat-label>
-        <input matInput [(ngModel)]="amenityInput" [ngModelOptions]="{standalone: true}" placeholder="E.g. Gym, Pool, Park">
+        <input matInput [(ngModel)]="amenityInput" [ngModelOptions]="{standalone: true}">
       </mat-form-field>
 
       <button mat-flat-button color="accent" type="button" (click)="saveAmenity()">Add Amenity</button>
 
       <div *ngIf="amenitiesList.length > 0">
-        <h4>Amenities Added:</h4>
-        <div *ngFor="let a of amenitiesList">
-          🏋️ {{ a.name }}
+        <h4>🌳 Amenities Added:</h4>
+        <div *ngFor="let amenity of amenitiesList">
+          🌟 {{ amenity }}
         </div>
       </div>
     </mat-expansion-panel>
 
-    <!-- Parking Slots -->
+    <!-- Parking Slots Input -->
     <mat-expansion-panel expanded>
       <mat-expansion-panel-header>
-        <mat-panel-title>Parking Setup</mat-panel-title>
+        <mat-panel-title>Configure Parking Slots</mat-panel-title>
       </mat-expansion-panel-header>
 
-      <mat-form-field appearance="outline" class="half-width">
+      <mat-form-field appearance="outline" class="full-width">
         <mat-label>Parking Spot Number</mat-label>
-        <input matInput [(ngModel)]="parkingSpotInput" [ngModelOptions]="{standalone: true}" placeholder="E.g. P1, P2">
+        <input matInput [(ngModel)]="parkingSpotInput" [ngModelOptions]="{standalone: true}">
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="half-width">
-        <mat-label>Parking Type</mat-label>
-        <input matInput [(ngModel)]="parkingTypeInput" [ngModelOptions]="{standalone: true}" placeholder="E.g. Covered, Open">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Parking Type (Ex: Two Wheeler, Four Wheeler)</mat-label>
+        <input matInput [(ngModel)]="parkingTypeInput" [ngModelOptions]="{standalone: true}">
       </mat-form-field>
 
       <button mat-flat-button color="accent" type="button" (click)="saveParking()">Add Parking Slot</button>
 
-      <div *ngIf="parkingList.length > 0">
-        <h4>Parking Slots Added:</h4>
-        <div *ngFor="let p of parkingList">
-          🚗 {{ p.spotNumber }} ({{ p.type }})
+      <div *ngIf="parkingSlotsList.length > 0">
+        <h4>🚗 Parking Slots Added:</h4>
+        <div *ngFor="let slot of parkingSlotsList">
+          🚘 {{ slot.spotNumber }} ({{ slot.type }})
         </div>
       </div>
     </mat-expansion-panel>
@@ -166,20 +205,20 @@
     <!-- Expense Categories -->
     <mat-expansion-panel expanded>
       <mat-expansion-panel-header>
-        <mat-panel-title>Expense Categories Setup</mat-panel-title>
+        <mat-panel-title>Configure Expense Categories</mat-panel-title>
       </mat-expansion-panel-header>
 
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Expense Category</mat-label>
-        <input matInput [(ngModel)]="expenseCategoryInput" [ngModelOptions]="{standalone: true}" placeholder="E.g. Electricity, Water">
+        <input matInput [(ngModel)]="expenseCategoryInput" [ngModelOptions]="{standalone: true}">
       </mat-form-field>
 
       <button mat-flat-button color="accent" type="button" (click)="saveExpenseCategory()">Add Expense Category</button>
 
       <div *ngIf="expenseCategoriesList.length > 0">
-        <h4>Expense Categories Added:</h4>
-        <div *ngFor="let ec of expenseCategoriesList">
-          💰 {{ ec.categoryName }}
+        <h4>💰 Expense Categories Added:</h4>
+        <div *ngFor="let category of expenseCategoriesList">
+          📄 {{ category }}
         </div>
       </div>
     </mat-expansion-panel>
@@ -187,20 +226,20 @@
     <!-- Staff Departments -->
     <mat-expansion-panel expanded>
       <mat-expansion-panel-header>
-        <mat-panel-title>Staff Departments Setup</mat-panel-title>
+        <mat-panel-title>Configure Staff Departments</mat-panel-title>
       </mat-expansion-panel-header>
 
       <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Department Name</mat-label>
-        <input matInput [(ngModel)]="staffDepartmentInput" [ngModelOptions]="{standalone: true}" placeholder="E.g. Security, Maintenance">
+        <mat-label>Staff Department</mat-label>
+        <input matInput [(ngModel)]="staffDepartmentInput" [ngModelOptions]="{standalone: true}">
       </mat-form-field>
 
-      <button mat-flat-button color="accent" type="button" (click)="saveStaffDepartment()">Add Department</button>
+      <button mat-flat-button color="accent" type="button" (click)="saveStaffDepartment()">Add Staff Department</button>
 
       <div *ngIf="staffDepartmentsList.length > 0">
-        <h4>Staff Departments Added:</h4>
-        <div *ngFor="let d of staffDepartmentsList">
-          👷 {{ d.departmentName }}
+        <h4>👨‍💼 Staff Departments Added:</h4>
+        <div *ngFor="let dept of staffDepartmentsList">
+          🏢 {{ dept }}
         </div>
       </div>
     </mat-expansion-panel>
@@ -208,7 +247,7 @@
     <!-- Submit -->
     <div class="form-actions">
       <button mat-flat-button color="primary" type="submit" [disabled]="submitting">
-        🚀 Register Society
+        Register Society
       </button>
     </div>
 
