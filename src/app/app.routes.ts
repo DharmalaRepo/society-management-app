@@ -1,57 +1,36 @@
 import { Routes } from '@angular/router';
 import { LayoutComponent } from './layout/layout.component';
-import { authGuard } from './core/guards/auth.guard';
+import { AuthGuard } from './core/guards/auth.guard';
+import { RegisterSocietyComponent } from './register-society/register-society.component';
 
 export const routes: Routes = [
+
+  { path: '', pathMatch: 'full', redirectTo: 'welcome' },
   {
-    path: '',
-    canActivate: [authGuard],
-    component: LayoutComponent,
-    children: [
-      {
-        path: 'residents',
-        loadChildren: () =>
-          import('./residents/residents.routes').then(m => m.default)
-      },
-      {
-        path: 'finance',
-        loadChildren: () =>
-          import('./finance/finance.routes').then(m => m.default)
-      },
-      {
-        path: 'staff',
-        loadChildren: () =>
-          import('./staff/staff.routes').then(m => m.default)
-      },
-      {
-        path: 'visitor-auth',
-        loadChildren: () =>
-          import('./visitor-auth/visitor-auth.routes').then(m => m.default)
-      },
-      {
-        path: 'society-management',
-        loadChildren: () =>
-          import('./society-management/society-management.routes').then(m => m.default)
-      },
-      {
-        path: 'grievances',
-        loadChildren: () =>
-          import('./grievances/grievances.routes').then(m => m.grievancesRoutes)
-      },
-      {
-        path: 'events',
-        loadChildren: () =>
-          import('./events/events-festive.routes').then(m => m.default)
-      }
-    ]
-  },
+      path: 'welcome',
+      loadComponent: () => import('./welcome/welcome.component').then(m => m.WelcomeComponent)
+    },
   {
     path: 'login',
     loadComponent: () =>
       import('./auth/login/login.component').then(m => m.LoginComponent)
   },
+  { path: 'register-society', component: RegisterSocietyComponent },
   {
-    path: '**',
-    redirectTo: ''
-  }
+    path: '',
+    component: LayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: 'residents', loadChildren: () => import('./residents/residents.routes').then(m => m.default) },
+      { path: 'finance', loadChildren: () => import('./finance/finance.routes').then(m => m.default) },
+      { path: 'staff', loadChildren: () => import('./staff/staff.routes').then(m => m.default) },
+      { path: 'visitor-auth', loadChildren: () => import('./visitor-auth/visitor-auth.routes').then(m => m.default) },
+      { path: 'society-management', loadChildren: () => import('./society-management/society-management.routes').then(m => m.default) },
+      { path: 'grievances', loadChildren: () => import('./grievances/grievances.routes').then(m => m.default) },
+      { path: 'events', loadChildren: () => import('./events/events-festive.routes').then(m => m.default) },
+      { path: '**', redirectTo: 'residents' }, // fallback if user hits wrong URL inside layout
+    ]
+  },
+
+  { path: '**', redirectTo: 'login' } // fallback for any wrong URL
 ];

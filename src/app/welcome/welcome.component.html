@@ -1,5 +1,57 @@
-<div class="welcome-page">
-  <h1>Welcome to Society Management</h1>
-  <button routerLink="/auth/login">Login</button>
-  <button routerLink="/auth/register">Register Society</button>
+<div class="welcome-container">
+  <div class="left-panel">
+    <h1>🏡 Welcome to Hethi Society Management Application</h1>
+    <ul>
+      <li>🎯 Manage Residents & Flats</li>
+      <li>🏢 Track Visitors Securely</li>
+      <li>🛡️ Resolve Grievances Smoothly</li>
+      <li>📢 Conduct Events & Polls</li>
+    </ul>
+  </div>
+
+  <div class="right-panel">
+
+    <!-- Register New Society Section -->
+    <div class="register-section">
+      <h2>New to Hethi Society Management </h2>
+      <button mat-flat-button color="accent" class="register-button" routerLink="/register-society">
+        🏢 Register Your Society
+      </button>
+      <h2></h2>
+      <!-- Login Card Section -->
+      <mat-card>
+        <h2>Login to your Society</h2>
+        <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Username</mat-label>
+            <input matInput formControlName="username">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Society ID</mat-label>
+            <input matInput formControlName="societyId">
+          </mat-form-field>
+
+          <button mat-raised-button color="primary" class="full-width" type="submit">
+            Login
+          </button>
+
+          <div class="options">
+            <a href="javascript:void(0)" (click)="onForgotPassword()">Forgot Password</a> |
+            <a href="javascript:void(0)" (click)="onResetPassword()">Reset Password</a> |
+            <a href="javascript:void(0)" (click)="onForgotUsername()">Forgot Username</a>
+          </div>
+        </form>
+      </mat-card>
+
+    </div>
+
+
+
+  </div>
 </div>

@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { GrievancesComponent } from './grievances.component';
 import { GrievanceDialogComponent } from './dialogs/grievance-dialog.component';
 
-export const grievancesRoutes: Routes = [
+const routes: Routes = [
   {
     path: 'all',
     component: GrievancesComponent,
@@ -25,3 +25,6 @@ export const grievancesRoutes: Routes = [
     pathMatch: 'full',
   }
 ];
+
+
+export default routes;
