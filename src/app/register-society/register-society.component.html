@@ -1,44 +1,249 @@
-<h2>Register Your Society</h2>
+<div class="register-society-container">
 
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
-  <mat-form-field appearance="outline" class="full-width">
-    <mat-label>Society Name</mat-label>
-    <input matInput formControlName="societyName" required>
-  </mat-form-field>
+  <h1>🏢 Register Your Society</h1>
 
-  <mat-form-field appearance="outline" class="full-width">
-    <mat-label>Address</mat-label>
-    <input matInput formControlName="address" required>
-  </mat-form-field>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
 
-  <mat-form-field appearance="outline" class="full-width">
-    <mat-label>City</mat-label>
-    <input matInput formControlName="city" required>
-  </mat-form-field>
+    <!-- Society Master Details -->
+    <mat-expansion-panel expanded>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Society Information</mat-panel-title>
+      </mat-expansion-panel-header>
 
-  <mat-form-field appearance="outline" class="full-width">
-    <mat-label>State</mat-label>
-    <input matInput formControlName="state" required>
-  </mat-form-field>
+      <div formGroupName="societyMaster" class="form-group">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Society Name</mat-label>
+          <input matInput formControlName="name" required>
+        </mat-form-field>
 
-  <mat-form-field appearance="outline" class="full-width">
-    <mat-label>Contact Person</mat-label>
-    <input matInput formControlName="contactPerson" required>
-  </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Registration Number</mat-label>
+          <input matInput formControlName="registrationNumber">
+        </mat-form-field>
 
-  <mat-form-field appearance="outline" class="full-width">
-    <mat-label>Contact Number</mat-label>
-    <input matInput formControlName="contactNumber" required>
-  </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Address</mat-label>
+          <input matInput formControlName="address" required>
+        </mat-form-field>
 
-  <mat-form-field appearance="outline" class="full-width">
-    <mat-label>Email</mat-label>
-    <input matInput formControlName="email" required>
-  </mat-form-field>
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>City</mat-label>
+          <input matInput formControlName="city" required>
+        </mat-form-field>
 
-  <div class="dialog-actions">
-    <button mat-flat-button color="primary" type="submit" [disabled]="submitting">
-      Register
-    </button>
-  </div>
-</form>
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>State</mat-label>
+          <input matInput formControlName="state" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>Country</mat-label>
+          <input matInput formControlName="country" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>Pincode</mat-label>
+          <input matInput formControlName="pincode" required>
+        </mat-form-field>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Flats Section -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Flats</mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div formArrayName="flats">
+        <div *ngFor="let flat of flats.controls; let i = index" [formGroupName]="i" class="form-group-inline">
+          <mat-form-field appearance="outline">
+            <mat-label>Flat Number</mat-label>
+            <input matInput formControlName="flatNumber">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Block Name</mat-label>
+            <input matInput formControlName="blockName">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Floor</mat-label>
+            <input matInput formControlName="floor">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Type</mat-label>
+            <input matInput formControlName="type">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Area (sq ft)</mat-label>
+            <input matInput type="number" formControlName="areaInSqFt">
+          </mat-form-field>
+
+          <button mat-icon-button color="warn" type="button" (click)="removeFlat(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+
+        <button mat-flat-button color="accent" type="button" (click)="addFlat()">+ Add Flat</button>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Amenities Section -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Amenities</mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div formArrayName="amenities">
+        <div *ngFor="let amenity of amenities.controls; let i = index" [formGroupName]="i" class="form-group-inline">
+          <mat-form-field appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Description</mat-label>
+            <input matInput formControlName="description">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Location</mat-label>
+            <input matInput formControlName="location">
+          </mat-form-field>
+
+          <button mat-icon-button color="warn" type="button" (click)="removeAmenity(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+
+        <button mat-flat-button color="accent" type="button" (click)="addAmenity()">+ Add Amenity</button>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Parking Slots Section -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Parking Slots</mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div formArrayName="parkingSlots">
+        <div *ngFor="let parking of parkingSlots.controls; let i = index" [formGroupName]="i" class="form-group-inline">
+          <mat-form-field appearance="outline">
+            <mat-label>Spot Number</mat-label>
+            <input matInput formControlName="spotNumber">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Type</mat-label>
+            <input matInput formControlName="type">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Allocated Flat</mat-label>
+            <input matInput formControlName="allocatedToFlatNumber">
+          </mat-form-field>
+
+          <button mat-icon-button color="warn" type="button" (click)="removeParkingSlot(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+
+        <button mat-flat-button color="accent" type="button" (click)="addParkingSlot()">+ Add Parking Slot</button>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Maintenance Settings -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Maintenance Settings</mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div formGroupName="maintenanceSetting" class="form-group">
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>Frequency</mat-label>
+          <input matInput formControlName="frequency">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>Amount</mat-label>
+          <input matInput type="number" formControlName="amount">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>Due Date</mat-label>
+          <input matInput type="date" formControlName="dueDate">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>Late Fee</mat-label>
+          <input matInput type="number" formControlName="lateFee">
+        </mat-form-field>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Expense Categories -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Expense Categories</mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div formArrayName="expenseCategories">
+        <div *ngFor="let category of expenseCategories.controls; let i = index" [formGroupName]="i" class="form-group-inline">
+          <mat-form-field appearance="outline">
+            <mat-label>Category Name</mat-label>
+            <input matInput formControlName="categoryName">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Description</mat-label>
+            <input matInput formControlName="description">
+          </mat-form-field>
+
+          <button mat-icon-button color="warn" type="button" (click)="removeExpenseCategory(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+
+        <button mat-flat-button color="accent" type="button" (click)="addExpenseCategory()">+ Add Expense Category</button>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Staff Departments -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Staff Departments</mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div formArrayName="staffDepartments">
+        <div *ngFor="let dept of staffDepartments.controls; let i = index" [formGroupName]="i" class="form-group-inline">
+          <mat-form-field appearance="outline">
+            <mat-label>Department Name</mat-label>
+            <input matInput formControlName="departmentName">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Description</mat-label>
+            <input matInput formControlName="description">
+          </mat-form-field>
+
+          <button mat-icon-button color="warn" type="button" (click)="removeStaffDepartment(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+
+        <button mat-flat-button color="accent" type="button" (click)="addStaffDepartment()">+ Add Staff Department</button>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Submit Button -->
+    <div class="form-actions">
+      <button mat-flat-button color="primary" type="submit" [disabled]="submitting">
+        Register Society
+      </button>
+    </div>
+
+  </form>
+
+</div>

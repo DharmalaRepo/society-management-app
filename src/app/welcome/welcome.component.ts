@@ -13,6 +13,7 @@ import { environment } from 'src/environments/environment';
 import { ResetPasswordDialogComponent } from '../auth/dialogs/reset-password-dialog/reset-password-dialog.component';
 import { ForgotUsernameDialogComponent } from '../auth/dialogs/forgot-username-dialog/forgot-username-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-welcome',
@@ -22,6 +23,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     ReactiveFormsModule,
     MatCardModule,
     MatFormFieldModule,
+    RouterModule,
     MatInputModule,
     MatButtonModule,
   ],
