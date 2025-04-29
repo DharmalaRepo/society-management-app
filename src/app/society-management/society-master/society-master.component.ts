@@ -1,36 +1,47 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { SocietyService } from '../../core/services/society.service';
+import { Component, OnInit } from '@angular/core';
+import { SocietyService } from 'src/app/core/services/society.service';
+import { SocietyDetailsResponseDTO } from 'src/app/core/models/society-registration/society-registration.model';
 import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
-import { SocietyMaster } from 'src/app/core/models/society-registration/society-details.model';
+// ADD BELOW:
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatTableModule } from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { CommonModule, NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-society-master',
-  standalone: true,
-  imports: [CommonModule, MatCardModule, MatIconModule],
+  standalone: true,  // if you are using standalone
+  imports: [
+    NgIf, NgFor, AsyncPipe,
+    MatTabsModule,
+    MatCardModule,
+    CommonModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+  ],
   templateUrl: './society-master.component.html',
-  styleUrls: ['./society-master.component.scss']
+  styleUrls: ['./society-master.component.scss'],
 })
 export class SocietyMasterComponent implements OnInit {
-  private societyService = inject(SocietyService);
-  societyMaster: SocietyMaster | null = null;
-  loading = false;
+  societyDetails!: SocietyDetailsResponseDTO;
+
+  constructor(private societyService: SocietyService) {}
 
   ngOnInit(): void {
-    this.fetchSocietyDetails();
+    this.loadSocietyDetails();
   }
 
-  fetchSocietyDetails(): void {
-    this.loading = true;
+  loadSocietyDetails(): void {
     this.societyService.getSocietyDetails().subscribe({
       next: (data) => {
-        this.societyMaster = data?.societyMaster || null;
-        this.loading = false;
+        this.societyDetails = data;
       },
-      error: () => {
-        this.societyMaster = null;
-        this.loading = false;
+      error: (err) => {
+        console.error('Error fetching society details', err);
       }
     });
   }
