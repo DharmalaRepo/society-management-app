@@ -1,7 +1,33 @@
-<h2 mat-dialog-title>Maintenance Dialog</h2>
-<form [formGroup]="form">
-  <mat-form-field appearance="fill">
-    <mat-label>Name</mat-label>
-    <input matInput formControlName="name">
+<!-- maintenance-dialog.component.html -->
+<mat-dialog-content [formGroup]="form" class="space-y-4">
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Frequency</mat-label>
+    <input matInput formControlName="frequency" required>
   </mat-form-field>
-</form>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Amount</mat-label>
+    <input matInput type="number" formControlName="amount" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Due Date</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="dueDate" required>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Late Fee</mat-label>
+    <input matInput type="number" formControlName="lateFee">
+  </mat-form-field>
+
+  <mat-slide-toggle formControlName="isActive">Active</mat-slide-toggle>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-flat-button color="primary" (click)="save()" [disabled]="form.invalid">Save</button>
+  <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

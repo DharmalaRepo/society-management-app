@@ -1,34 +1,72 @@
-
 <mat-card>
-  <mat-card-title>Management</mat-card-title>
+  <mat-card-title>Manage Flats</mat-card-title>
   <mat-card-content>
-    <button mat-flat-button color="primary" (click)="openDialog()">Add New</button>
-    <table mat-table [dataSource]="data" class="mat-elevation-z8">
-      <ng-container matColumnDef="blockName">
-        <th mat-header-cell *matHeaderCellDef>Block</th>
-        <td mat-cell *matCellDef="let element">{{element.blockName}}</td>
-      </ng-container>
-      <ng-container matColumnDef="floor">
-        <th mat-header-cell *matHeaderCellDef>Floor</th>
-        <td mat-cell *matCellDef="let element">{{element.floor}}</td>
-      </ng-container>
-      <ng-container matColumnDef="flatNumber">
-        <th mat-header-cell *matHeaderCellDef>Flat Number</th>
-        <td mat-cell *matCellDef="let element">{{element.flatNumber}}</td>
-      </ng-container>
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef>Actions</th>
-        <td mat-cell *matCellDef="let element">
-          <button mat-icon-button color="accent" (click)="openDialog(element)">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-icon-button color="warn" (click)="delete(element.id)">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+
+    <div class="table-container">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <!-- Block Name Column -->
+        <ng-container matColumnDef="blockName">
+          <th mat-header-cell *matHeaderCellDef>Block</th>
+          <td mat-cell *matCellDef="let flat">{{ flat.blockName }}</td>
+        </ng-container>
+
+        <!-- Floor Column -->
+        <ng-container matColumnDef="floor">
+          <th mat-header-cell *matHeaderCellDef>Floor</th>
+          <td mat-cell *matCellDef="let flat">{{ flat.floor }}</td>
+        </ng-container>
+
+        <!-- Flat Number Column -->
+        <ng-container matColumnDef="flatNumber">
+          <th mat-header-cell *matHeaderCellDef>Flat No.</th>
+          <td mat-cell *matCellDef="let flat">{{ flat.flatNumber }}</td>
+        </ng-container>
+
+        <!-- Type Column -->
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef>Type</th>
+          <td mat-cell *matCellDef="let flat">{{ flat.type }}</td>
+        </ng-container>
+
+        <!-- Area Column -->
+        <ng-container matColumnDef="areaInSqFt">
+          <th mat-header-cell *matHeaderCellDef>Area (SqFt)</th>
+          <td mat-cell *matCellDef="let flat">{{ flat.areaInSqFt }}</td>
+        </ng-container>
+
+        <!-- Occupied Column -->
+        <ng-container matColumnDef="occupied">
+          <th mat-header-cell *matHeaderCellDef>Occupied</th>
+          <td mat-cell *matCellDef="let flat">
+            <mat-icon [color]="flat.occupied ? 'primary' : 'warn'">
+              {{ flat.occupied ? 'check_circle' : 'highlight_off' }}
+            </mat-icon>
+          </td>
+        </ng-container>
+
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let flat">
+            <button mat-icon-button color="primary" (click)="editFlat(flat)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteFlat(flat)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <!-- Header and Row Declarations -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+
+    <div class="actions">
+      <button mat-flat-button color="accent" (click)="addFlat()">Add Flat</button>
+    </div>
+
   </mat-card-content>
 </mat-card>

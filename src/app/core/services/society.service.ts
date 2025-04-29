@@ -3,10 +3,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { SocietyMasterDTO } from 'src/app/core/models/society-registration/society-registration.model';
 import { SocietyDetailsResponseDTO } from 'src/app/core/models/society-registration/society-details.model';
-import { SocietyFlat } from '../models/society-flat.model';
-import { SocietyAmenity } from '../models/society-amenity.model';
-import { SocietyParking } from '../models/society-parking.model';
-import { SocietyMaintenanceSetting } from '../models/society-maintenance-setting.model';
+import { SocietyFlat } from 'src/app/core/models/society-registration/society-details.model';
+import { SocietyAmenity } from 'src/app/core/models/society-registration/society-details.model';
+import { SocietyParking } from 'src/app/core/models/society-registration/society-details.model';
+import { SocietyMaintenanceSetting } from 'src/app/core/models/society-registration/society-details.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
@@ -97,25 +97,25 @@ export class SocietyService {
     }
 
     // ────── Parking ──────
-    getParkings(): Observable<SocietyParking[]> {
+    getParkingSlots(): Observable<SocietyParking[]> {
       return this.http.get<SocietyParking[]>(`${this.baseUrl}/parking`, {
         headers: this.getAuthHeaders()
       });
     }
 
-    createParking(parking: SocietyParking): Observable<SocietyParking> {
+    createParkingSlot(parking: SocietyParking): Observable<SocietyParking> {
       return this.http.post<SocietyParking>(`${this.baseUrl}/parking`, parking, {
         headers: this.getAuthHeaders()
       });
     }
 
-    updateParking(id: string, parking: SocietyParking): Observable<SocietyParking> {
+    updateParkingSlot(id: string, parking: SocietyParking): Observable<SocietyParking> {
       return this.http.put<SocietyParking>(`${this.baseUrl}/parking/${id}`, parking, {
         headers: this.getAuthHeaders()
       });
     }
 
-    deleteParking(id: string): Observable<void> {
+    deleteParkingSlot(id: string): Observable<void> {
       return this.http.delete<void>(`${this.baseUrl}/parking/${id}`, {
         headers: this.getAuthHeaders()
       });

@@ -1,30 +1,64 @@
+<mat-card class="parking-card">
+  <mat-card-title class="card-title">Manage Parking Slots</mat-card-title>
 
-<mat-card>
-  <mat-card-title>Management</mat-card-title>
   <mat-card-content>
-    <button mat-flat-button color="primary" (click)="openDialog()">Add New</button>
-    <table mat-table [dataSource]="data" class="mat-elevation-z8">
-      <ng-container matColumnDef="customId">
-        <th mat-header-cell *matHeaderCellDef>ID</th>
-        <td mat-cell *matCellDef="let element">{{element.customId}}</td>
-      </ng-container>
-      <ng-container matColumnDef="type">
-        <th mat-header-cell *matHeaderCellDef>Type</th>
-        <td mat-cell *matCellDef="let element">{{element.type}}</td>
-      </ng-container>
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef>Actions</th>
-        <td mat-cell *matCellDef="let element">
-          <button mat-icon-button color="accent" (click)="openDialog(element)">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-icon-button color="warn" (click)="delete(element.id)">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+
+    <div class="table-header">
+      <button mat-flat-button color="primary" (click)="openDialog()">
+        <mat-icon class="icon-left">add</mat-icon> Add New Parking Slot
+      </button>
+    </div>
+
+    <div class="table-container">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 full-width-table">
+
+        <!-- Slot Number Column -->
+        <ng-container matColumnDef="slotNumber">
+          <th mat-header-cell *matHeaderCellDef class="header-cell">Slot Number</th>
+          <td mat-cell *matCellDef="let element">{{ element.slotNumber }}</td>
+        </ng-container>
+
+        <!-- Slot Type Column -->
+        <ng-container matColumnDef="slotType">
+          <th mat-header-cell *matHeaderCellDef class="header-cell">Slot Type</th>
+          <td mat-cell *matCellDef="let element">{{ element.slotType }}</td>
+        </ng-container>
+
+        <!-- Floor Column -->
+        <ng-container matColumnDef="floor">
+          <th mat-header-cell *matHeaderCellDef class="header-cell">Floor</th>
+          <td mat-cell *matCellDef="let element">{{ element.floor }}</td>
+        </ng-container>
+
+        <!-- Is Occupied Column -->
+        <ng-container matColumnDef="isOccupied">
+          <th mat-header-cell *matHeaderCellDef class="header-cell">Occupied?</th>
+          <td mat-cell *matCellDef="let element">
+            <mat-icon [color]="element.isOccupied ? 'primary' : 'warn'">
+              {{ element.isOccupied ? 'check_circle' : 'highlight_off' }}
+            </mat-icon>
+          </td>
+        </ng-container>
+
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef class="header-cell">Actions</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="accent" (click)="openDialog(element)">
+              <mat-icon class="icon-hover">edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteParkingSlot(element.id)">
+              <mat-icon class="icon-hover">delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <!-- Table headers and rows -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      </table>
+    </div>
+
   </mat-card-content>
 </mat-card>

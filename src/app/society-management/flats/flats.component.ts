@@ -1,51 +1,83 @@
-
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
+import { SocietyFlat } from 'src/app/core/models/society-registration/society-details.model';
+import { SocietyService } from 'src/app/core/services/society.service';
+import { FlatDialogComponent } from '../dialogs/flat-dialog/flat-dialog.component'; // ✅ Corrected path
 import { CommonModule } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
-import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { SocietyFlat } from '../../core/models/society-flat.model';
-import { SocietyService } from 'src/app/core/services/society.service';
-import { FlatDialogComponent } from '../dialogs/flat-dialog/flat-dialog.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatTableModule } from '@angular/material/table';
 
 @Component({
   selector: 'app-flats',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatTableModule, MatButtonModule, MatIconModule, MatDialogModule],
   templateUrl: './flats.component.html',
-  styleUrls: ['./flats.component.scss']
+  styleUrls: ['./flats.component.scss'],
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
+    MatTableModule,
+  ]
 })
 export class FlatsComponent implements OnInit {
-  private service = inject(SocietyService);
-  private dialog = inject(MatDialog);
-  data: SocietyFlat[] = [];
-  displayedColumns: string[] = ['blockName', 'floor', 'flatNumber', 'actions'];
+  displayedColumns: string[] = ['blockName', 'floor', 'flatNumber', 'type', 'areaInSqFt', 'occupied', 'actions'];
+  dataSource = new MatTableDataSource<SocietyFlat>();
+
+  constructor(
+    private societyService: SocietyService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
-    this.fetchData();
+    this.loadFlats();
   }
 
-  fetchData() {
-    this.service.getFlats().subscribe(res => this.data = res);
-  }
-
-  openDialog(existing?: SocietyFlat) {
-    const dialogRef = this.dialog.open(FlatDialogComponent, {
-      width: '400px',
-      data: existing || null
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        existing
-          ? this.service.updateFlat(existing.id!, result).subscribe(() => this.fetchData())
-          : this.service.createFlat(result).subscribe(() => this.fetchData());
+  loadFlats() {
+    this.societyService.getFlats().subscribe({
+      next: (flats: SocietyFlat[]) => {  // ✅ Added type
+        this.dataSource.data = flats || [];
+      },
+      error: (err: any) => {             // ✅ Added type
+        console.error('Failed to load flats:', err);
       }
     });
   }
 
-  delete(id: string) {
-    this.service.deleteFlat(id).subscribe(() => this.fetchData());
+  addFlat() {
+    const dialogRef = this.dialog.open(FlatDialogComponent, {
+      width: '400px',
+      data: null,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loadFlats();
+      }
+    });
+  }
+
+  editFlat(flat: SocietyFlat) {
+    const dialogRef = this.dialog.open(FlatDialogComponent, {
+      width: '400px',
+      data: flat,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loadFlats();
+      }
+    });
+  }
+
+  deleteFlat(flat: SocietyFlat) {
+    if (flat.id) {
+      this.societyService.deleteFlat(flat.id).subscribe(() => {
+        this.loadFlats();
+      });
+    }
   }
 }

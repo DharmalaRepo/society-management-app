@@ -1,7 +1,25 @@
-<h2 mat-dialog-title>Amenity Dialog</h2>
-<form [formGroup]="form">
-  <mat-form-field appearance="fill">
-    <mat-label>Name</mat-label>
-    <input matInput formControlName="name">
-  </mat-form-field>
-</form>
+<h2 mat-dialog-title>{{ data ? 'Edit Amenity' : 'Add Amenity' }}</h2>
+
+<mat-dialog-content [formGroup]="form" class="dialog-content">
+  <div class="form-section">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" placeholder="Enter Amenity Name">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Description</mat-label>
+      <input matInput formControlName="description" placeholder="Enter Description">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Location</mat-label>
+      <input matInput formControlName="location" placeholder="Enter Location">
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="dialog-actions">
+  <button mat-flat-button color="primary" (click)="save()" [disabled]="form.invalid">Save</button>
+  <button mat-button (click)="close()">Cancel</button>
+</mat-dialog-actions>

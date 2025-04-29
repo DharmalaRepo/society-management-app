@@ -1,0 +1,41 @@
+.amenities-card {
+  margin: 20px;
+  padding: 20px;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.full-width-table {
+  width: 100%;
+  font-size: 14px;
+}
+
+.add-button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+.header-cell {
+  text-align: center;
+  font-weight: bold;
+}
+
+.mat-header-row,
+.mat-row {
+  text-align: center;
+}
+
+.icon-left {
+  margin-right: 8px;
+}
+
+.icon-hover {
+  transition: transform 0.2s;
+}
+
+.icon-hover:hover {
+  transform: scale(1.2);
+}

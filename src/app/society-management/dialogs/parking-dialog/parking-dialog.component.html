@@ -1,7 +1,29 @@
-<h2 mat-dialog-title>Parking Dialog</h2>
-<form [formGroup]="form">
-  <mat-form-field appearance="fill">
-    <mat-label>Name</mat-label>
-    <input matInput formControlName="name">
-  </mat-form-field>
-</form>
+<h2 mat-dialog-title>{{ data ? 'Edit Parking Slot' : 'Add Parking Slot' }}</h2>
+
+<mat-dialog-content [formGroup]="form" class="dialog-content">
+  <div class="form-section">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Spot Number</mat-label>
+      <input matInput formControlName="spotNumber" placeholder="Enter Spot Number">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Type</mat-label>
+      <input matInput formControlName="type" placeholder="Enter Parking Type">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Allocated Flat Number</mat-label>
+      <input matInput formControlName="allocatedToFlatNumber" placeholder="Enter Flat Number">
+    </mat-form-field>
+
+    <div class="toggle-wrapper">
+      <mat-slide-toggle formControlName="occupied">Occupied</mat-slide-toggle>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="dialog-actions">
+  <button mat-flat-button color="primary" (click)="save()" [disabled]="form.invalid">Save</button>
+  <button mat-button (click)="close()">Cancel</button>
+</mat-dialog-actions>

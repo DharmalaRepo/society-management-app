@@ -1,0 +1,32 @@
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  font-size: 14px;
+}
+
+.header-center {
+  text-align: center;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.cell-center {
+  text-align: center;
+}
+
+.add-button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.icon-hover {
+  transition: color 0.3s ease;
+}
+
+.icon-hover:hover {
+  color: #1976d2; /* subtle hover color */
+}

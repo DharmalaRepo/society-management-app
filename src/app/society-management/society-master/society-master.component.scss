@@ -41,33 +41,42 @@ table {
 
 
 .society-basic-info {
-  margin: 20px 0;
+   margin: 20px 0;
 
-  h2 {
-    margin-bottom: 15px;
-    font-size: 24px;
-    font-weight: 600;
-    text-align: center;
-  }
+   h2 {
+     margin-bottom: 20px;
+     font-size: 26px;
+     font-weight: bold;
+     color: #1976d2;
+     text-align: center;
+   }
 
-  .info-card {
-    padding: 20px;
-    background-color: #fafafa;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    border-radius: 8px;
-  }
+   .info-card {
+     padding: 25px;
+     background: linear-gradient(145deg, #e3f2fd, #bbdefb);
+     border-radius: 12px;
+     box-shadow: 0 4px 12px rgba(25, 118, 210, 0.2);
+   }
 
-  .info-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 15px;
-  }
+   .info-grid {
+     display: grid;
+     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+     gap: 20px;
+   }
 
-  .info-item {
-    font-size: 16px;
-    background: #fff;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-  }
-}
+   .info-item {
+     font-size: 16px;
+     background: white;
+     padding: 15px;
+     border-radius: 8px;
+     border: 1px solid #90caf9;
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+     transition: transform 0.3s ease;
+
+     &:hover {
+       transform: translateY(-3px);
+       background-color: #e3f2fd;
+       cursor: default;
+     }
+   }
+ }
