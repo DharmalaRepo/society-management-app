@@ -67,19 +67,19 @@ export class RegisterSocietyComponent {
     this.registerForm = this.fb.group({
       societyMaster: this.fb.group({
         name: ['', Validators.required],
-        registrationNumber: [''],
+        registrationNumber: ['', Validators.required],
         address: [''],
         city: [''],
         state: [''],
         country: [''],
-        pincode: ['']
+        pincode: ['', Validators.required]
       }),
       blockNamesInput: [''],
       admin: this.fb.group({
         name: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
-        phone: [''],
-        username: [''],
+        phone: ['', Validators.required],
+        username: ['', Validators.required],
         password: ['', [Validators.required, Validators.minLength(6)]],
       })
     });

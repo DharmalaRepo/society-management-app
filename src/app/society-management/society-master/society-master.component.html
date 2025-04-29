@@ -1,35 +1,26 @@
+<div class="society-master-container">
+  <h2>🏢 Society Details</h2>
 
-<mat-card>
-  <mat-card-title>Society Master</mat-card-title>
-  <mat-card-content>
-    <button mat-raised-button color="primary" (click)="openDialog()">Add Society</button>
-    <table mat-table [dataSource]="societies" class="mat-elevation-z8 mt-4">
+  <mat-card *ngIf="societyMaster; else noData" class="society-card">
+    <mat-card-content>
+      <div class="details-grid">
+        <div><strong>Society Name:</strong> {{ societyMaster.name }}</div>
+        <div><strong>Society ID:</strong> {{ societyMaster.societyIdentifier }}</div>
+        <div><strong>Registration No:</strong> {{ societyMaster.registrationNumber || 'N/A' }}</div>
+        <div><strong>Address:</strong> {{ societyMaster.address }}</div>
+        <div><strong>City:</strong> {{ societyMaster.city }}</div>
+        <div><strong>State:</strong> {{ societyMaster.state }}</div>
+        <div><strong>Country:</strong> {{ societyMaster.country }}</div>
+        <div><strong>Pincode:</strong> {{ societyMaster.pincode }}</div>
+      </div>
+    </mat-card-content>
+  </mat-card>
 
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>Name</th>
-        <td mat-cell *matCellDef="let element">{{element.name}}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="registrationNumber">
-        <th mat-header-cell *matHeaderCellDef>Reg. No.</th>
-        <td mat-cell *matCellDef="let element">{{element.registrationNumber}}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="city">
-        <th mat-header-cell *matHeaderCellDef>City</th>
-        <td mat-cell *matCellDef="let element">{{element.city}}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef>Actions</th>
-        <td mat-cell *matCellDef="let element">
-          <button mat-icon-button color="primary" (click)="openDialog(element)"><mat-icon>edit</mat-icon></button>
-          <button mat-icon-button color="warn" (click)="deleteSociety(element.id)"><mat-icon>delete</mat-icon></button>
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-  </mat-card-content>
-</mat-card>
+  <ng-template #noData>
+    <mat-card class="society-card no-data">
+      <mat-card-content>
+        <p>No Society Details Available.</p>
+      </mat-card-content>
+    </mat-card>
+  </ng-template>
+</div>

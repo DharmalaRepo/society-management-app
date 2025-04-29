@@ -62,7 +62,7 @@ export class SidebarComponent {
         label: 'Society Management',
         icon: 'apartment',
         children: [
-          { label: 'Society Master', route: '/society-management/master' },
+          { label: 'Society Details', route: '/society-management/master' },
           { label: 'Flats', route: '/society-management/flats' },
           { label: 'Amenities', route: '/society-management/amenities' },
           { label: 'Parking', route: '/society-management/parking' },

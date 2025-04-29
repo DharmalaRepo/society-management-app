@@ -21,7 +21,7 @@ export class FlatsComponent implements OnInit {
   private service = inject(SocietyService);
   private dialog = inject(MatDialog);
   data: SocietyFlat[] = [];
-  displayedColumns: string[] = ['customId', 'type', 'actions'];
+  displayedColumns: string[] = ['blockName', 'floor', 'flatNumber', 'actions'];
 
   ngOnInit(): void {
     this.fetchData();

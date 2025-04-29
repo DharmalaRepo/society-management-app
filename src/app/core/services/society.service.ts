@@ -1,7 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { SocietyMaster } from '../models/society-master.model';
+import { SocietyMasterDTO } from 'src/app/core/models/society-registration/society-registration.model';
+import { SocietyDetailsResponseDTO } from 'src/app/core/models/society-registration/society-details.model';
 import { SocietyFlat } from '../models/society-flat.model';
 import { SocietyAmenity } from '../models/society-amenity.model';
 import { SocietyParking } from '../models/society-parking.model';
@@ -21,20 +22,20 @@ export class SocietyService {
     }
 
     // ────── Society Master ──────
-    getSocieties(): Observable<SocietyMaster[]> {
-      return this.http.get<SocietyMaster[]>(`${this.baseUrl}/societies`, {
+    getSocietyDetails(): Observable<SocietyDetailsResponseDTO> {
+      return this.http.get<SocietyDetailsResponseDTO>(`${this.baseUrl}/societies/getSocietyDetails`, {
         headers: this.getAuthHeaders()
       });
     }
 
-    createSociety(society: SocietyMaster): Observable<SocietyMaster> {
-      return this.http.post<SocietyMaster>(`${this.baseUrl}/societies`, society, {
+    createSociety(society: SocietyMasterDTO): Observable<SocietyMasterDTO> {
+      return this.http.post<SocietyMasterDTO>(`${this.baseUrl}/societies`, society, {
         headers: this.getAuthHeaders()
       });
     }
 
-    updateSociety(id: string, society: SocietyMaster): Observable<SocietyMaster> {
-      return this.http.put<SocietyMaster>(`${this.baseUrl}/societies/${id}`, society, {
+    updateSociety(id: string, society: SocietyMasterDTO): Observable<SocietyMasterDTO> {
+      return this.http.put<SocietyMasterDTO>(`${this.baseUrl}/societies/${id}`, society, {
         headers: this.getAuthHeaders()
       });
     }

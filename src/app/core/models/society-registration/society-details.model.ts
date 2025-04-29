@@ -1,24 +1,14 @@
-export interface SocietyRegistrationRequestDTO {
-  societyMaster: SocietyMasterDTO;
-  flats: SocietyFlatDTO[];
-  amenities: SocietyAmenityDTO[];
-  parkingSlots: SocietyParkingDTO[];
-  maintenanceSetting: SocietyMaintenanceSettingDTO;
-  expenseCategories: ExpenseCategoryDTO[];
-  staffDepartments: StaffDepartmentDTO[];
-}
-
 export interface SocietyDetailsResponseDTO {
-    societyMaster: SocietyMasterDTO;
-    flats: SocietyFlatDTO[];
-    amenities: SocietyAmenityDTO[];
-    parkingSlots: SocietyParkingDTO[];
-    maintenanceSetting: SocietyMaintenanceSettingDTO;
-    expenseCategories: ExpenseCategoryDTO[];
-    staffDepartments: StaffDepartmentDTO[];
+    societyMaster: SocietyMaster;
+    flats: SocietyFlat[];
+    amenities: SocietyAmenity[];
+    parkingSlots: SocietyParking[];
+    maintenanceSetting: SocietyMaintenanceSetting;
+    expenseCategories: ExpenseCategory[];
+    staffDepartments: StaffDepartment[];
 }
 
-export interface SocietyMasterDTO {
+export interface SocietyMaster {
   id?: string;
   customId?: number;
   societyIdentifier?: string;
@@ -36,7 +26,7 @@ export interface SocietyMasterDTO {
   isActive?: number;
 }
 
-export interface SocietyFlatDTO {
+export interface SocietyFlat {
   id?: string;
   customId?: number;
   societyIdentifier?: string;
@@ -49,7 +39,7 @@ export interface SocietyFlatDTO {
   occupied?: boolean;
 }
 
-export interface SocietyAmenityDTO {
+export interface SocietyAmenity {
   id?: string;
   customId?: number;
   societyIdentifier?: string;
@@ -59,7 +49,7 @@ export interface SocietyAmenityDTO {
   isActive?: number;
 }
 
-export interface SocietyParkingDTO {
+export interface SocietyParking {
   id?: string;
   customId?: number;
   societyIdentifier?: string;
@@ -70,7 +60,7 @@ export interface SocietyParkingDTO {
   occupied?: boolean;
 }
 
-export interface SocietyMaintenanceSettingDTO {
+export interface SocietyMaintenanceSetting {
   id?: string;
   customId?: number;
   societyIdentifier?: string;
@@ -81,13 +71,13 @@ export interface SocietyMaintenanceSettingDTO {
   isActive?: number;
 }
 
-export interface ExpenseCategoryDTO {
+export interface ExpenseCategory {
   societyIdentifier?: string;
   categoryName: string;
   description: string;
 }
 
-export interface StaffDepartmentDTO {
+export interface StaffDepartment {
   societyIdentifier?: string;
   departmentName: string;
   description: string;

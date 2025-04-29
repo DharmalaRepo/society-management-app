@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpInterceptorFn } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
-  const username = localStorage.getItem('username') ?? 'admin';
-  const password = localStorage.getItem('password') ?? 'admin123';
-  const societyId = localStorage.getItem('societyId') ?? '';
+  const username = environment.basicAuth.username;
+  const password = environment.basicAuth.password;
+  const societyId = sessionStorage.getItem('societyId') ?? '';
 
   const basicAuth = 'Basic ' + btoa(`${username}:${password}`);
 
