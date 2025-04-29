@@ -73,7 +73,7 @@ export class SocietyService {
 
     // ────── Amenities ──────
     getAmenities(): Observable<SocietyAmenity[]> {
-      return this.http.get<SocietyAmenity[]>(`${this.baseUrl}/amenities`, {
+      return this.http.get<SocietyAmenity[]>(`${this.baseUrl}/amenities/getAll`, {
         headers: this.getAuthHeaders()
       });
     }
@@ -98,7 +98,7 @@ export class SocietyService {
 
     // ────── Parking ──────
     getParkingSlots(): Observable<SocietyParking[]> {
-      return this.http.get<SocietyParking[]>(`${this.baseUrl}/parking`, {
+      return this.http.get<SocietyParking[]>(`${this.baseUrl}/parking/getAll`, {
         headers: this.getAuthHeaders()
       });
     }
@@ -123,7 +123,7 @@ export class SocietyService {
 
     // ────── Maintenance ──────
     getMaintenance(): Observable<SocietyMaintenanceSetting[]> {
-      return this.http.get<SocietyMaintenanceSetting[]>(`${this.baseUrl}/maintenance-settings`, {
+      return this.http.get<SocietyMaintenanceSetting[]>(`${this.baseUrl}/maintenance-settings/getAll`, {
         headers: this.getAuthHeaders()
       });
     }
