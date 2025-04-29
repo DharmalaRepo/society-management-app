@@ -68,7 +68,7 @@ export class WelcomeComponent {
         // 🔥 Proper session save
         sessionStorage.setItem('loggedIn', 'true');
         sessionStorage.setItem('username', form.username);
-        sessionStorage.setItem('societyId', form.societyId);
+        sessionStorage.setItem('societyIdentifier', form.societyId);
 
         this.snackBar.open('Login Successful!', 'Close', { duration: 3000 });
         this.router.navigate(['/residents']);

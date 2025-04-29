@@ -20,11 +20,15 @@ export class HeaderComponent {
   societyName = '';
 
   @Output() toggleSidebar = new EventEmitter<void>();
+  currentTime = new Date().toLocaleTimeString();
 
   ngOnInit() {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    this.username = user.username || 'User';
+    this.username = sessionStorage.getItem('username') ?? '';
     this.societyName = user.societyId || 'N/A';
+    setInterval(() => {
+          this.currentTime = new Date().toLocaleTimeString();
+        }, 1000);
   }
 
   onToggleSidebar() {

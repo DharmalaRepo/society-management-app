@@ -1,28 +1,52 @@
-.sidebar-scroll {
-  background-color: #87CEEB; // Amber 400
-  color: #000; // Optional: Make text more readable
-  height: 100vh;
-  overflow-y: auto;
+.sidebar-container {
+  height: 100%;
+  width: 250px;
+  background: linear-gradient(180deg, #1a237e, #283593); // Elegant indigo gradient
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 0;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+  font-family: 'Segoe UI', sans-serif;
 }
 
-mat-nav-list {
-  background-color: transparent; // Let .sidebar-scroll define color
+.sidebar-title {
+  font-size: 22px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 28px;
+  color: #e8eaf6;
 }
 
-mat-expansion-panel {
-  background-color: transparent;
-  box-shadow: none;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+.nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-mat-expansion-panel-header {
-  color: #000;
-}
-
-a.mat-list-item {
-  color: #000;
+.nav-item {
+  display: flex;
+  align-items: center;
+  padding: 14px 22px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: background 0.3s ease-in-out, color 0.2s ease;
+  color: #c5cae9;
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.04);
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+  }
+
+  &.active {
+    background-color: #3949ab;
+    font-weight: 600;
+    color: #ffffff;
+  }
+
+  mat-icon {
+    margin-right: 14px;
+    font-size: 20px;
+    color: #9fa8da;
   }
 }

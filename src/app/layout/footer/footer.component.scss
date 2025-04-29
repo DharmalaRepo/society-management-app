@@ -1,9 +1,18 @@
-
 .footer {
-  width: 100%;
-  padding: 10px;
-  text-align: center;
-  border-top: 1px solid #ccc;
-  background-color: #f8f8f8;
-  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  padding: 12px 24px;
+  font-size: 14px;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.footer-left a {
+  color: #bbdefb;
+  text-decoration: underline;
+}
+
+.footer-right {
+  font-weight: 500;
 }

@@ -1,10 +1,15 @@
 <div class="layout-container">
-  <div class="main">
-    <app-header (toggleSidebar)="toggleSidebar()"></app-header>
-    <div class="content">
-      <app-sidebar class="sidebar" [collapsed]="isSidebarCollapsed"></app-sidebar>
+  <!-- Header with custom color -->
+  <app-header class="header colored-header"></app-header>
+
+  <!-- Main layout: sidebar + content -->
+  <div class="main-body">
+    <app-sidebar class="sidebar colored-sidebar" [collapsed]="isSidebarCollapsed"></app-sidebar>
+    <div class="main-content">
       <router-outlet></router-outlet>
     </div>
-    <app-footer></app-footer>
   </div>
+
+  <!-- Footer with same color as header -->
+  <app-footer class="footer colored-header"></app-footer>
 </div>
