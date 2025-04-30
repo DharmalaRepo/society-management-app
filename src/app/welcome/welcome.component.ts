@@ -71,7 +71,7 @@ export class WelcomeComponent {
         sessionStorage.setItem('societyIdentifier', form.societyId);
 
         this.snackBar.open('Login Successful!', 'Close', { duration: 3000 });
-        this.router.navigate(['/residents']);
+        this.router.navigate(['master']);
       },
       error: (error) => {
         console.error('Login Failed', error);

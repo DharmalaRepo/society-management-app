@@ -7,7 +7,8 @@ import { ParkingComponent } from './parking/parking.component';
 import { MaintenanceComponent } from './maintenance/maintenance.component';
 
 const routes: Routes = [
-       { path: 'master', component: SocietyMasterComponent },
+         { path: '', pathMatch: 'full', redirectTo: 'master' },
+         { path: 'master', component: SocietyMasterComponent },
          { path: 'flats', component: FlatsComponent },
          { path: 'amenities', component: AmenitiesComponent },
          { path: 'parking', component: ParkingComponent },

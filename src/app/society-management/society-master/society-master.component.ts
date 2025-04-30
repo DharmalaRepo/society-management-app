@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SocietyService } from 'src/app/core/services/society.service';
 import { SocietyDetailsResponseDTO } from 'src/app/core/models/society-registration/society-registration.model';
 import { MatCardModule } from '@angular/material/card';
-// ADD BELOW:
+import { SocietyConfigService } from 'src/app/core/services/society-config.service';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -29,20 +29,16 @@ import { MatButtonModule } from '@angular/material/button';
 export class SocietyMasterComponent implements OnInit {
   societyDetails!: SocietyDetailsResponseDTO;
 
-  constructor(private societyService: SocietyService) {}
+  constructor(
+    private societyService: SocietyService,
+    private configService: SocietyConfigService
+  ) {}
 
   ngOnInit(): void {
-    this.loadSocietyDetails();
-  }
-
-  loadSocietyDetails(): void {
-    this.societyService.getSocietyDetails().subscribe({
-      next: (data) => {
-        this.societyDetails = data;
-      },
-      error: (err) => {
-        console.error('Error fetching society details', err);
-      }
+    this.societyService.getSocietyDetails().subscribe(response => {
+      const details = response;
+      this.configService.setSocietyDetails(details);
+      this.societyDetails = details;
     });
   }
 }

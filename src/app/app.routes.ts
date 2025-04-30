@@ -28,7 +28,7 @@ export const routes: Routes = [
       { path: 'society-management', loadChildren: () => import('./society-management/society-management.routes').then(m => m.default) },
       { path: 'grievances', loadChildren: () => import('./grievances/grievances.routes').then(m => m.default) },
       { path: 'events', loadChildren: () => import('./events/events-festive.routes').then(m => m.default) },
-      { path: '**', redirectTo: 'residents' }, // fallback if user hits wrong URL inside layout
+      { path: '**', redirectTo: 'society-management' }, // fallback if user hits wrong URL inside layout
     ]
   },
 
