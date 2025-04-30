@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { VisitorService } from 'src/app/core/services/visitor.service';
+import { VisitorAuthService } from 'src/app/core/services/visitor.service';
 import { VisitorToken } from 'src/app/core/models/visitortoken.model';
 import { MatCardModule } from '@angular/material/card';
 import { NgIf } from '@angular/common';

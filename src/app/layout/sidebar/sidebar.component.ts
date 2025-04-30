@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 interface SidebarItem {
   label: string;
   route: string;
+  icon?: string;
 }
 
 interface SidebarSection {
@@ -73,10 +74,15 @@ export class SidebarComponent {
        label: 'Visitor Authentication',
        icon: 'key',
        children: [
-         { label: 'Generate Token', route: '/visitor-auth/generate-token' },
-         { label: 'Verify Token', route: '/visitor-auth/verify-token' },
-         { label: 'Token List', route: '/visitor-auth/token-list' },
-       ]
+           { label: 'Generate OTP', icon: 'add_circle', route: '/visitor-auth/generate-otp' },
+           { label: 'Verify OTP', icon: 'verified_user', route: '/visitor-auth/verify-otp' },
+           { label: 'Visitor Logs', icon: 'assignment', route: '/visitor-auth/logs' },
+           { label: 'Approval Requests', icon: 'how_to_reg', route: '/visitor-auth/approval-requests' },
+           { label: 'Recurring Passes', icon: 'schedule', route: '/visitor-auth/recurring-pass' },
+           { label: 'Blacklist Visitors', icon: 'block', route: '/visitor-auth/blacklist' },
+           { label: 'Visitor Analytics', icon: 'bar_chart', route: '/visitor-auth/analytics' },
+           { label: 'Request Approval', icon: 'login', route: '/visitor-auth/request-approval' }
+         ]
      },
       {
         label: 'Society Association',

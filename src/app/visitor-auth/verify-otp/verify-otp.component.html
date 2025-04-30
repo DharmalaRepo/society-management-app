@@ -1,0 +1,20 @@
+<mat-card class="verify-otp-card">
+  <mat-card-title>Verify Visitor OTP</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="verifyOtp()">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>OTP</mat-label>
+        <input matInput formControlName="otp" placeholder="Enter OTP">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Entry Gate</mat-label>
+        <input matInput formControlName="entryGate" placeholder="Main Gate / Side Gate">
+      </mat-form-field>
+
+      <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid || verifying">
+        {{ verifying ? 'Verifying...' : 'Verify OTP' }}
+      </button>
+    </form>
+  </mat-card-content>
+</mat-card>

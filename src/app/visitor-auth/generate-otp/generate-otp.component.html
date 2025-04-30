@@ -1,0 +1,56 @@
+<mat-card>
+  <mat-card-title>Generate Visitor OTP</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="generateOtp()">
+      <div class="form-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>Visitor Name</mat-label>
+          <input matInput formControlName="visitorName" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Mobile</mat-label>
+          <input matInput formControlName="visitorMobile" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Block Number</mat-label>
+          <input matInput formControlName="blockNumber" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Flat Number</mat-label>
+          <input matInput formControlName="flatNumber" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Purpose</mat-label>
+          <input matInput formControlName="purpose" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Email (optional)</mat-label>
+          <input matInput formControlName="visitorEmail">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Vehicle Number (optional)</mat-label>
+          <input matInput formControlName="vehicleNumber">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Photo URL (optional)</mat-label>
+          <input matInput formControlName="photoUrl">
+        </mat-form-field>
+      </div>
+
+      <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid || loading">
+        {{ loading ? 'Generating...' : 'Generate OTP' }}
+      </button>
+    </form>
+
+    <div *ngIf="otpResult" class="otp-display">
+      <p><strong>Generated OTP:</strong> {{ otpResult }}</p>
+    </div>
+  </mat-card-content>
+</mat-card>

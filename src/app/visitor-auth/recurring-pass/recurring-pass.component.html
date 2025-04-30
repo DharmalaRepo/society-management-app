@@ -1,0 +1,77 @@
+<mat-card>
+  <mat-card-title>Recurring Pass Setup</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="savePass()" class="form-grid">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Visitor Name</mat-label>
+        <input matInput formControlName="visitorName">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Mobile</mat-label>
+        <input matInput formControlName="visitorMobile">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Flat ID</mat-label>
+        <input matInput formControlName="flatId">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Days</mat-label>
+        <mat-select formControlName="days" multiple>
+          <mat-option *ngFor="let day of ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']" [value]="day">{{ day }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Time Range</mat-label>
+        <input matInput formControlName="timeRange" placeholder="e.g. 9:00 AM - 6:00 PM">
+      </mat-form-field>
+
+      <button mat-flat-button color="primary" type="submit">Save</button>
+    </form>
+
+    <h3>Active Recurring Passes</h3>
+    <table mat-table [dataSource]="recurringPasses" class="mat-elevation-z8 full-width-table">
+      <ng-container matColumnDef="visitorName">
+        <th mat-header-cell *matHeaderCellDef>Visitor</th>
+        <td mat-cell *matCellDef="let p">{{ p.visitorName }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="visitorMobile">
+        <th mat-header-cell *matHeaderCellDef>Mobile</th>
+        <td mat-cell *matCellDef="let p">{{ p.visitorMobile }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="days">
+        <th mat-header-cell *matHeaderCellDef>Days</th>
+        <td mat-cell *matCellDef="let p">{{ p.days.join(', ') }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="timeRange">
+        <th mat-header-cell *matHeaderCellDef>Time</th>
+        <td mat-cell *matCellDef="let p">{{ p.timeRange }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="enabled">
+        <th mat-header-cell *matHeaderCellDef>Enabled</th>
+        <td mat-cell *matCellDef="let p">
+          <mat-slide-toggle [checked]="p.enabled" (change)="togglePass(p)"></mat-slide-toggle>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let p">
+          <button mat-icon-button color="warn" (click)="deletePass(p.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </mat-card-content>
+</mat-card>

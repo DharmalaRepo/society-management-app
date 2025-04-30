@@ -1,0 +1,32 @@
+<h2>Request Visitor Approval</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Visitor Name</mat-label>
+    <input matInput formControlName="visitorName" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Mobile Number</mat-label>
+    <input matInput formControlName="visitorMobile" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Flat Number</mat-label>
+    <input matInput formControlName="flatNumber" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Block Number</mat-label>
+    <input matInput formControlName="blockNumber">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Purpose</mat-label>
+    <input matInput formControlName="purpose" required>
+  </mat-form-field>
+
+  <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">
+    Submit Request
+  </button>
+</form>

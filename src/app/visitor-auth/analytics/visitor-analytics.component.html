@@ -1,0 +1,42 @@
+<mat-card class="analytics-card">
+  <mat-card-title>Visitor Analytics</mat-card-title>
+  <mat-card-content>
+
+    <div class="stat-cards">
+      <mat-card class="stat-card primary">
+        <div class="stat-label">Total Visits</div>
+        <div class="stat-value">{{ totalVisits }}</div>
+      </mat-card>
+
+      <mat-card class="stat-card success">
+        <div class="stat-label">Approved</div>
+        <div class="stat-value">{{ approvalStats.approved }}</div>
+      </mat-card>
+
+      <mat-card class="stat-card warn">
+        <div class="stat-label">Rejected</div>
+        <div class="stat-value">{{ approvalStats.rejected }}</div>
+      </mat-card>
+    </div>
+
+    <div class="charts-container">
+      <div class="chart-box">
+        <h4>Most Active Flats</h4>
+        <canvas baseChart
+                [data]="barChartData"
+                [type]="'bar'">
+        </canvas>
+      </div>
+
+      <div class="chart-box">
+        <h4>Approval Ratio</h4>
+        <canvas baseChart
+                [data]="pieChartData"
+                [type]="'pie'"
+                [options]="pieChartOptions">
+        </canvas>
+      </div>
+    </div>
+
+  </mat-card-content>
+</mat-card>

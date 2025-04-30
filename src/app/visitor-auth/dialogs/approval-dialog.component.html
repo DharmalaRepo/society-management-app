@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>Visitor Approval</h2>
+
+<mat-dialog-content [formGroup]="form">
+  <p>Visitor: <strong>{{ data.visitorName }}</strong></p>
+  <p>Purpose: <strong>{{ data.purpose }}</strong></p>
+  <p>Flat: <strong>{{ data.flatNumber }}</strong></p>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Note</mat-label>
+    <input matInput formControlName="note" placeholder="Enter approval note">
+    <mat-error *ngIf="form.get('note')?.hasError('required')">Note is required</mat-error>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Cancel</button>
+  <button mat-stroked-button color="warn" (click)="reject()">Reject</button>
+  <button mat-flat-button color="primary" (click)="approve()">Approve</button>
+</mat-dialog-actions>

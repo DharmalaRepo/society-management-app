@@ -1,0 +1,35 @@
+export interface VisitorEntry {
+  id?: string;
+  customId?: string;
+  visitorName: string;
+  visitorMobile: string;
+  visitorEmail?: string;
+  vehicleNumber?: string;
+  purpose: string;
+  flatId: string;
+  flatNumber: string;
+  blockNumber: string;
+  flatOwnerName?: string;
+  societyIdentifier: string;
+  otp?: string;
+  otpGeneratedAt?: string;
+  otpExpiryAt?: string;
+  otpUsed?: boolean;
+  otpActive?: boolean;
+  checkInTime?: string;
+  checkOutTime?: string;
+  entryGate?: string;
+  photoUrl?: string;
+  createdBy?: string;
+  modifiedBy?: string;
+  createdByRole: string;
+  createdDate?: string;
+  modifiedDate?: string;
+  approvalRequested?: boolean;
+  approvedByResident?: boolean;
+  rejectedByResident?: boolean;
+  approvalRequestedAt?: string;
+  approvalRespondedAt?: string;
+  approvalResponseNote?: string;
+  approvalStatus?: 'PENDING' | 'APPROVED' | 'REJECTED';
+}
