@@ -27,6 +27,7 @@ export class VisitorLogsComponent implements OnInit {
     'purpose',
     'entryGate',
     'otp',
+    'createdByRole',
     'approvalStatus',
     'checkInTime',
     'checkOutTime',
