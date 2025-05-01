@@ -57,6 +57,7 @@ export class FlatDialogComponent {
       });
     } else {
       this.societyService.createFlat(flat).subscribe(() => {
+      this.societyService.refreshConfig();
         this.dialogRef.close(true);
       });
     }

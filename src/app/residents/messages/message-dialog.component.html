@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>{{ data ? 'Edit Reminder' : 'Add Reminder' }}</h2>
+<h2 mat-dialog-title>Send Broadcast</h2>
 
 <mat-dialog-content [formGroup]="form">
   <mat-form-field appearance="fill" class="full-width">
@@ -8,14 +8,24 @@
 
   <mat-form-field appearance="fill" class="full-width">
     <mat-label>Message</mat-label>
-    <textarea matInput formControlName="message"></textarea>
+    <textarea matInput formControlName="message" rows="4"></textarea>
   </mat-form-field>
 
   <mat-form-field appearance="fill" class="full-width">
-    <mat-label>Trigger Date</mat-label>
-    <input matInput [matDatepicker]="picker" formControlName="triggerDate" />
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
+    <mat-label>Audience</mat-label>
+    <mat-select formControlName="audience">
+      <mat-option value="ALL">All Residents</mat-option>
+      <mat-option value="FLATS">Selected Flats</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="form.get('audience')?.value === 'FLATS'" appearance="fill" class="full-width">
+    <mat-label>Select Flat Numbers</mat-label>
+    <mat-select formControlName="flatNumbers" multiple>
+      <mat-option *ngFor="let flat of configService.getFlats()" [value]="flat">
+        {{ flat }}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
 
   <mat-form-field appearance="fill" class="full-width">
@@ -26,16 +36,9 @@
       <mat-option value="WHATSAPP">WhatsApp</mat-option>
     </mat-select>
   </mat-form-field>
-
-  <mat-form-field appearance="fill" class="full-width">
-    <mat-label>Send To (Flat)</mat-label>
-    <mat-select formControlName="residentId">
-      <mat-option *ngFor="let flat of flatOptions" [value]="flat">{{ flat }}</mat-option>
-    </mat-select>
-  </mat-form-field>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button mat-flat-button color="primary" (click)="save()" [disabled]="form.invalid">Save</button>
+  <button mat-flat-button color="primary" (click)="save()" [disabled]="form.invalid">Send</button>
   <button mat-button (click)="close()">Cancel</button>
 </mat-dialog-actions>

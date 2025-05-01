@@ -70,6 +70,21 @@ export class SidebarComponent {
           { label: 'Maintenance', route: '/society-management/maintenance' },
         ]
       },
+      {
+        label: 'My Account',
+        icon: 'person',
+        children: [
+          { label: 'My Flat Info', route: '/my-account/flat-info', icon: 'home' },
+          { label: 'My Payments', route: '/my-account/payments', icon: 'receipt' },
+          { label: 'My Receipts', route: '/my-account/receipts', icon: 'download' },
+          { label: 'My Vehicles', route: '/my-account/vehicles', icon: 'directions_car' },
+          { label: 'My Visitors', route: '/my-account/visitors', icon: 'badge' },
+          { label: 'My Grievances', route: '/my-account/grievances', icon: 'report' },
+          { label: 'Communication Preferences', route: '/my-account/preferences', icon: 'settings' },
+          { label: 'Panic Settings', route: '/my-account/security', icon: 'security' },
+          { label: 'Proof of Residence', route: '/my-account/proof', icon: 'picture_as_pdf' }
+        ]
+      },
      {
        label: 'Visitor Authentication',
        icon: 'key',
@@ -104,9 +119,8 @@ export class SidebarComponent {
           { label: 'Residents', route: '/residents/list'},
           { label: 'Vehicles', route: '/residents/vehicles'  },
           { label: 'Alerts & Reminders', route: '/residents/alerts'},
-          { label: 'Polls', route: '/residents/polls'},
-          { label: 'Guest Visit Logs', route: '/residents/guests'},
-          { label: 'Broadcast Messages', route: '/residents/messages'}
+          { label: 'Broadcast Messages', route: '/residents/messages'},
+          { label: 'Directory', icon: 'contacts', route: '/residents/directory' }
         ]
       },
       {

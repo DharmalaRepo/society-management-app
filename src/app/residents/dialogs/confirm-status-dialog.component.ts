@@ -18,14 +18,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatListModule } from '@angular/material/list';
 import { MatTableDataSource } from '@angular/material/table';
 
-import { BroadcastMessage } from 'src/app/core/models/resident/broadcast-message.model';
-import { SocietyConfigService } from 'src/app/core/services/society-config.service';
-import { SocietyFlat } from 'src/app/core/models/society-registration/society-details.model';
-
-
 @Component({
-  selector: 'app-message-dialog',
-  templateUrl: './message-dialog.component.html',
+  selector: 'app-confirm-status-dialog',
+  templateUrl: './confirm-status-dialog.component.html',
   standalone: true,
 imports: [CommonModule,
           ReactiveFormsModule,
@@ -46,40 +41,17 @@ imports: [CommonModule,
  		      MatListModule,
 ],
 })
-export class MessageDialogComponent {
-  form: FormGroup;
-  flatOptions: SocietyFlat[] = [];
-  deliveryMethods: string[] = ['EMAIL', 'WHATSAPP', 'APP_NOTIFICATION'];
-  public data!: BroadcastMessage;
-  public configService = Inject(SocietyConfigService); // or make it `public` if it's already a constructor param
-
+export class ConfirmStatusDialogComponent {
   constructor(
-    @Inject(MAT_DIALOG_DATA) data: BroadcastMessage,
-      private dialogRef: MatDialogRef<MessageDialogComponent>,
-      private fb: FormBuilder,
-  ) {
-    this.flatOptions = this.configService.getFlats();
+    public dialogRef: MatDialogRef<ConfirmStatusDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { name: string; action: 'activate' | 'deactivate' }
+  ) {}
 
-    this.form = this.fb.group({
-      title: [data?.title || '', Validators.required],
-      message: [data?.message || '', Validators.required],
-      audience: [data?.audience || 'ALL', Validators.required],
-      flatNumbers: [data?.flatNumbers || []],
-      deliveryMethods: [data?.deliveryMethods || ['APP_NOTIFICATION'], Validators.required]
-    });
+  confirm(): void {
+    this.dialogRef.close(true);
   }
 
-  ngOnInit(): void {
-    this.flatOptions = this.configService.getFlats();
-  }
-
-  save(): void {
-    if (this.form.valid) {
-      this.dialogRef.close(this.form.value);
-    }
-  }
-
-  close(): void {
-    this.dialogRef.close();
+  cancel(): void {
+    this.dialogRef.close(false);
   }
 }

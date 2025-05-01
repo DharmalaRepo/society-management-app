@@ -1,18 +1,8 @@
 .footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #fff;
-  padding: 12px 24px;
+  background-color: #1e88e5;
+  color: white;
+  text-align: center;
+  padding: 12px;
   font-size: 14px;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.footer-left a {
-  color: #bbdefb;
-  text-decoration: underline;
-}
-
-.footer-right {
-  font-weight: 500;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
 }

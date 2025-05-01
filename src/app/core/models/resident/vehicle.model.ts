@@ -1,16 +1,10 @@
 export interface Vehicle {
-  id?: string;
-  customId?: number;
-  vehicleNumber: string;
-  vehicleType: string;
-  brand: string;
-  color: string;
+  vehicleId?: string;
   residentId: string;
   flatNumber: string;
-  createdBy?: string;
-  modifiedBy?: string;
-  isActive?: number;
-  createdDate?: string;
-  modifiedDate?: string;
-  societyId: number;
+  vehicleNumber: string;
+  vehicleType?: string;
+  brand?: string;
+  color?: string;
+  parkingSlot?: string;
 }

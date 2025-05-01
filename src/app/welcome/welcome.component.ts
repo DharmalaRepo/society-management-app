@@ -69,7 +69,7 @@ export class WelcomeComponent {
         sessionStorage.setItem('loggedIn', 'true');
         sessionStorage.setItem('username', form.username);
         sessionStorage.setItem('societyIdentifier', form.societyId);
-
+        sessionStorage.setItem('user', JSON.stringify(response));
         this.snackBar.open('Login Successful!', 'Close', { duration: 3000 });
         this.router.navigate(['master']);
       },

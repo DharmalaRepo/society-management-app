@@ -1,18 +1,26 @@
-<div class="header">
-  <h2>Broadcast Messages</h2>
-  <button mat-flat-button color="primary" (click)="openDialog()">Add Message</button>
-</div>
+<mat-card>
+  <mat-card-title>
+    Broadcast Messages
+    <button mat-flat-button color="primary" class="float-right" (click)="openDialog()">Add Message</button>
+  </mat-card-title>
 
-<div *ngIf="messages.length === 0" class="text-center">No messages available.</div>
+  <mat-card-content>
+    <div *ngIf="messages.length === 0" class="text-center">No messages available.</div>
 
-<ul>
-  <li *ngFor="let message of messages">
-    <strong>{{ message.title }}</strong> - {{ message.message }}
-    <button mat-icon-button (click)="openDialog(message)">
-      <mat-icon>edit</mat-icon>
-    </button>
-    <button mat-icon-button color="warn" (click)="deleteMessage(message.id ?? '')">
-      <mat-icon>delete</mat-icon>
-    </button>
-  </li>
-</ul>
+    <mat-list *ngIf="messages.length > 0">
+      <mat-list-item *ngFor="let message of messages">
+        <div mat-line>
+          <strong>{{ message.title }}</strong> — {{ message.message }}
+        </div>
+        <div mat-line class="actions">
+          <button mat-icon-button (click)="openDialog(message)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteMessage(message.broadcastId ?? '')">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>

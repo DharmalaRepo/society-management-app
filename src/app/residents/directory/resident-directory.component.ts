@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormsModule, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
@@ -18,18 +18,17 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatListModule } from '@angular/material/list';
 import { MatTableDataSource } from '@angular/material/table';
 
-import { BroadcastMessage } from 'src/app/core/models/resident/broadcast-message.model';
-import { SocietyConfigService } from 'src/app/core/services/society-config.service';
-import { SocietyFlat } from 'src/app/core/models/society-registration/society-details.model';
-
+import { ResidentService } from 'src/app/core/services/residents/resident.service';
+import { Resident } from 'src/app/core/models/resident/resident.model';
 
 @Component({
-  selector: 'app-message-dialog',
-  templateUrl: './message-dialog.component.html',
+  selector: 'app-resident-directory',
+  templateUrl: './resident-directory.component.html',
   standalone: true,
 imports: [CommonModule,
           ReactiveFormsModule,
           FormsModule,
+          MatTableModule,
           MatCardModule,
           MatFormFieldModule,
           MatInputModule,
@@ -46,40 +45,33 @@ imports: [CommonModule,
  		      MatListModule,
 ],
 })
-export class MessageDialogComponent {
-  form: FormGroup;
-  flatOptions: SocietyFlat[] = [];
-  deliveryMethods: string[] = ['EMAIL', 'WHATSAPP', 'APP_NOTIFICATION'];
-  public data!: BroadcastMessage;
-  public configService = Inject(SocietyConfigService); // or make it `public` if it's already a constructor param
+export class ResidentDirectoryComponent implements OnInit {
+  dataSource = new MatTableDataSource<Resident>([]);
+  displayedColumns = ['name', 'blockNumber', 'flatNumber', 'mobileNumber', 'residentType'];
+  filterText: string = '';
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) data: BroadcastMessage,
-      private dialogRef: MatDialogRef<MessageDialogComponent>,
-      private fb: FormBuilder,
-  ) {
-    this.flatOptions = this.configService.getFlats();
+  constructor(private residentService: ResidentService) {}
 
-    this.form = this.fb.group({
-      title: [data?.title || '', Validators.required],
-      message: [data?.message || '', Validators.required],
-      audience: [data?.audience || 'ALL', Validators.required],
-      flatNumbers: [data?.flatNumbers || []],
-      deliveryMethods: [data?.deliveryMethods || ['APP_NOTIFICATION'], Validators.required]
+  ngOnInit(): void {
+    this.residentService.getAllResidents().subscribe((residents: Resident[]) => {
+      const directoryResidents = residents.filter(r => r.showInDirectory);
+      this.dataSource.data = directoryResidents;
     });
   }
 
-  ngOnInit(): void {
-    this.flatOptions = this.configService.getFlats();
-  }
+  applyFilter(): void {
+    const filterValue = this.filterText?.trim().toLowerCase() || '';
 
-  save(): void {
-    if (this.form.valid) {
-      this.dialogRef.close(this.form.value);
-    }
-  }
+    this.dataSource.filterPredicate = (data: Resident, filter: string) => {
+      return [
+        data.name,
+        data.flatNumber,
+        data.blockNumber
+      ].some(value =>
+        value?.toLowerCase().includes(filter)
+      );
+    };
 
-  close(): void {
-    this.dialogRef.close();
+    this.dataSource.filter = filterValue;
   }
 }

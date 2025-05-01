@@ -46,6 +46,7 @@ export class MaintenanceDialogComponent {
         ...this.form.value,
         isActive: this.form.value.isActive ? 1 : 0,
       };
+      //this.societyService.refreshConfig();
       this.dialogRef.close(setting);
     }
   }

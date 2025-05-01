@@ -1,11 +1,32 @@
 <div class="header">
-  <div class="app-title">Society Manager</div>
+  <!-- Left: Hello, user -->
+  <div class="header-left">
+    <span>Hello, {{ username }}</span>
+  </div>
 
-  <div class="header-actions">
-    <div class="greeting">
-      <span>Hello, {{ username }}</span>
-    </div>
-    <mat-icon>notifications</mat-icon>
-    <mat-icon>account_circle</mat-icon>
+  <!-- Center: Society Identifier -->
+  <div class="header-center">
+    <span class="society-id">{{ societyIdentifier }}</span>
+  </div>
+
+  <!-- Right: User actions dropdown -->
+  <div class="header-right">
+    <button mat-icon-button [matMenuTriggerFor]="userMenu">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+    <mat-menu #userMenu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>person</mat-icon>
+        <span>Profile</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>notifications</mat-icon>
+        <span>Notifications</span>
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
   </div>
 </div>

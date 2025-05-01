@@ -1,76 +1,86 @@
-import { Component, inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormsModule, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatSortModule } from '@angular/material/sort';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatListModule } from '@angular/material/list';
+import { MatTableDataSource } from '@angular/material/table';
+
+import { ResidentService } from 'src/app/core/services/residents/resident.service';
 import { VehicleDialogComponent } from './vehicle-dialog.component';
-import { ResidentService } from 'src/app/core/services/resident.service';
 import { Vehicle } from 'src/app/core/models/resident/vehicle.model';
+
+
 
 @Component({
   selector: 'app-vehicles',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule,
-    MatDialogModule,
-    MatTableModule,
-    MatSortModule,
-    MatInputModule,
-    FormsModule,
-  ],
   templateUrl: './vehicles.component.html',
-  styleUrl: './vehicles.component.scss',
+  standalone: true,
+  imports: [CommonModule,
+            ReactiveFormsModule,
+            FormsModule,
+            MatTableModule,
+            MatCardModule,
+            MatFormFieldModule,
+            MatInputModule,
+            MatSelectModule,
+            MatOptionModule,
+            MatIconModule,
+            MatDialogModule,
+            MatButtonModule,
+            MatListModule,
+            MatDatepickerModule,
+            MatNativeDateModule,
+  	        MatNativeDateModule,
+            MatSlideToggleModule,
+   		      MatListModule,
+  ],
 })
-export class VehiclesComponent {
+export class VehiclesComponent implements OnInit {
   vehicles: Vehicle[] = [];
-  displayedColumns = ['flatNumber', 'vehicleNumber', 'vehicleType', 'brand', 'color', 'residentId', 'dates', 'actions'];
-  dataSource = new MatTableDataSource<Vehicle>();
-  filterValue: string = '';
+  displayedColumns: string[] = ['vehicleNumber', 'vehicleType', 'brand', 'color', 'parkingSlot', 'actions'];
 
-  private dialog = inject(MatDialog);
-  private service = inject(ResidentService);
+  constructor(private service: ResidentService, private dialog: MatDialog) {}
 
-  constructor() {
-    this.fetchVehicles();
+  ngOnInit(): void {
+    this.loadVehicles();
   }
 
-  fetchVehicles() {
-    this.service.getVehicles().subscribe(data => {
-      this.vehicles = data;
-      this.dataSource.data = data;
+  loadVehicles(): void {
+    this.service.getAllVehicles().subscribe((res: any) => {
+      this.vehicles = res;
     });
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   openDialog(vehicle?: Vehicle): void {
     const dialogRef = this.dialog.open(VehicleDialogComponent, {
-      width: '500px',
+      width: '400px',
       data: vehicle || null
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result: Vehicle) => {
       if (result) {
-        const operation = vehicle?.id
-          ? this.service.updateVehicle(vehicle.id, result)
-          : this.service.createVehicle(result);
-        operation.subscribe(() => this.fetchVehicles());
+        const saveFn = result.vehicleId ? this.service.updateVehicle.bind(this.service) : this.service.createVehicle.bind(this.service);
+        saveFn(result).subscribe(() => this.loadVehicles());
       }
     });
   }
 
-  deleteVehicle(id: string) {
-    this.service.deleteVehicle(id).subscribe(() => this.fetchVehicles());
+  deleteVehicle(vehicleId: string): void {
+    if (confirm('Are you sure you want to delete this vehicle?')) {
+      this.service.deleteVehicle(vehicleId).subscribe(() => this.loadVehicles());
+    }
   }
 }

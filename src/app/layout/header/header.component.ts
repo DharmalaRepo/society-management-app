@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { RouterModule } from '@angular/router';
 
@@ -11,16 +12,20 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  imports: [CommonModule, MatToolbarModule, MatIconModule, RouterModule],
+  imports: [CommonModule, MatToolbarModule, MatMenuModule, MatButtonModule, MatIconModule, RouterModule],
 })
 export class HeaderComponent {
   private auth = inject(AuthService);
   user: any;
-  username = '';
+  username = sessionStorage.getItem('username') || 'User';
   societyName = '';
 
   @Output() toggleSidebar = new EventEmitter<void>();
   currentTime = new Date().toLocaleTimeString();
+
+  societyIdentifier = sessionStorage.getItem('societyIdentifier') || 'N/A';
+
+
 
   ngOnInit() {
     const user = JSON.parse(localStorage.getItem('user') || '{}');

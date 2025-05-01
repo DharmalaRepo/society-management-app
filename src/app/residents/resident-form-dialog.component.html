@@ -1,32 +1,81 @@
-<h2 mat-dialog-title>{{ data?.id ? 'Edit' : 'Add' }} Resident</h2>
-<form [formGroup]="form" (ngSubmit)="submit()">
-  <mat-form-field appearance="fill" class="w-full">
+<h2 mat-dialog-title>{{ data ? 'Edit Resident' : 'Add Resident' }}</h2>
+
+<mat-dialog-content [formGroup]="form">
+  <mat-form-field class="full-width" appearance="fill">
     <mat-label>Name</mat-label>
-    <input matInput formControlName="name" />
+    <input matInput formControlName="name" required />
   </mat-form-field>
 
-  <mat-form-field appearance="fill" class="w-full">
-    <mat-label>Flat Number</mat-label>
-    <input matInput formControlName="flatNumber" />
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Mobile Number</mat-label>
+    <input matInput formControlName="mobileNumber" required />
   </mat-form-field>
 
-  <mat-form-field appearance="fill" class="w-full">
-    <mat-label>Apartment</mat-label>
-    <input matInput formControlName="apartment" />
-  </mat-form-field>
-
-  <mat-form-field appearance="fill" class="w-full">
+  <mat-form-field class="full-width" appearance="fill">
     <mat-label>Email</mat-label>
     <input matInput formControlName="email" />
   </mat-form-field>
 
-  <mat-form-field appearance="fill" class="w-full">
-    <mat-label>Phone</mat-label>
-    <input matInput formControlName="phone" />
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>WhatsApp Number</mat-label>
+    <input matInput formControlName="whatsappNumber" />
   </mat-form-field>
 
-  <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-flat-button color="primary" type="submit">Save</button>
-  </mat-dialog-actions>
-</form>
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Block Number</mat-label>
+    <mat-select formControlName="blockNumber">
+      <mat-option *ngFor="let block of blocks" [value]="block">
+        {{ block }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Flat Number</mat-label>
+    <mat-select formControlName="flatNumber">
+      <mat-option *ngFor="let flat of flats" [value]="flat">
+        {{ flat }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Resident Type</mat-label>
+    <mat-select formControlName="residentType">
+      <mat-option value="OWNER">Owner</mat-option>
+      <mat-option value="TENANT">Tenant</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Residency Status</mat-label>
+    <mat-select formControlName="residencyStatus">
+      <mat-option value="ACTIVE">Active</mat-option>
+      <mat-option value="INACTIVE">Inactive</mat-option>
+      <mat-option value="MOVED_OUT">Moved Out</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Move-in Date</mat-label>
+    <input matInput [matDatepicker]="moveInPicker" formControlName="moveInDate" />
+    <mat-datepicker-toggle matSuffix [for]="moveInPicker"></mat-datepicker-toggle>
+    <mat-datepicker #moveInPicker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Move-out Date</mat-label>
+    <input matInput [matDatepicker]="moveOutPicker" formControlName="moveOutDate" />
+    <mat-datepicker-toggle matSuffix [for]="moveOutPicker"></mat-datepicker-toggle>
+    <mat-datepicker #moveOutPicker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-slide-toggle formControlName="showInDirectory">
+    Show in Directory
+  </mat-slide-toggle>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-flat-button color="primary" (click)="save()" [disabled]="form.invalid">Save</button>
+  <button mat-button (click)="close()">Cancel</button>
+</mat-dialog-actions>

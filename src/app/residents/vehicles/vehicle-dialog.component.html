@@ -1,23 +1,46 @@
-<h2 mat-dialog-title>{{ data?.id ? 'Edit' : 'Add' }} Vehicle</h2>
+<h2 mat-dialog-title>{{ data ? 'Edit Vehicle' : 'Add Vehicle' }}</h2>
 
-<form [formGroup]="form" (ngSubmit)="submit()" mat-dialog-content>
-  <mat-form-field appearance="fill" class="w-full">
-    <mat-label>Owner Name</mat-label>
-    <input matInput formControlName="owner" />
-  </mat-form-field>
-
-  <mat-form-field appearance="fill" class="w-full">
+<mat-dialog-content [formGroup]="form">
+  <mat-form-field appearance="fill" class="full-width">
     <mat-label>Vehicle Number</mat-label>
-    <input matInput formControlName="number" />
+    <input matInput formControlName="vehicleNumber" />
   </mat-form-field>
 
-  <mat-form-field appearance="fill" class="w-full">
+  <mat-form-field appearance="fill" class="full-width">
     <mat-label>Vehicle Type</mat-label>
-    <input matInput formControlName="type" />
+    <input matInput formControlName="vehicleType" />
   </mat-form-field>
 
-  <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-flat-button color="primary" type="submit">Save</button>
-  </mat-dialog-actions>
-</form>
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Brand</mat-label>
+    <input matInput formControlName="brand" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Color</mat-label>
+    <input matInput formControlName="color" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Parking Slot</mat-label>
+    <mat-select formControlName="parkingSlot">
+      <mat-option *ngFor="let slot of parkingSlots" [value]="slot">
+        {{ slot }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Flat Number</mat-label>
+    <mat-select formControlName="flatNumber">
+      <mat-option *ngFor="let flat of flatNumbers" [value]="flat">
+        {{ flat }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-flat-button color="primary" (click)="save()" [disabled]="form.invalid">Save</button>
+  <button mat-button (click)="close()">Cancel</button>
+</mat-dialog-actions>

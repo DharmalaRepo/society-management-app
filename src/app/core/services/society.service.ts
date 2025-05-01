@@ -8,12 +8,21 @@ import { SocietyAmenity } from 'src/app/core/models/society-registration/society
 import { SocietyParking } from 'src/app/core/models/society-registration/society-details.model';
 import { SocietyMaintenanceSetting } from 'src/app/core/models/society-registration/society-details.model';
 import { environment } from 'src/environments/environment';
+import { SocietyConfigService } from './society-config.service';
+
 
 @Injectable({ providedIn: 'root' })
 export class SocietyService {
   private baseUrl = `${environment.societyApiUrl}/api`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,
+                private configService: SocietyConfigService) {}
+
+  refreshConfig(): void {
+    this.getSocietyDetails().subscribe((details: SocietyDetailsResponseDTO) => {
+      this.configService.setSocietyDetails(details);
+    });
+  }
 
     private getAuthHeaders(): HttpHeaders {
         const { username, password } = environment.basicAuth;

@@ -1,71 +1,62 @@
-
-<div class="header">
-  <h2>Resident Vehicles</h2>
-  <button mat-flat-button color="primary" (click)="openDialog()">Add Vehicle</button>
-</div>
-
 <mat-card>
-  <mat-form-field appearance="outline" class="w-full mb-4">
-    <mat-label>Search</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Search vehicles..." />
-  </mat-form-field>
+  <mat-card-title>Manage Vehicles</mat-card-title>
+  <mat-card-content>
 
-  <div *ngIf="vehicles.length === 0" class="text-center p-4">
-    No vehicles recorded.
-  </div>
+    <div class="table-container">
+      <button mat-flat-button color="primary" (click)="openDialog()" style="margin-bottom: 16px;">
+        <mat-icon class="icon-left">add</mat-icon>
+        Add New Vehicle
+      </button>
 
-  <div *ngIf="vehicles.length > 0" class="table-container">
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z2" matSort>
+      <table mat-table [dataSource]="vehicles" class="mat-elevation-z8 full-width-table">
 
-      <ng-container matColumnDef="flatNumber">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Flat</th>
-        <td mat-cell *matCellDef="let v">{{ v.flatNumber }}</td>
-      </ng-container>
+        <!-- Vehicle Number Column -->
+        <ng-container matColumnDef="vehicleNumber">
+          <th mat-header-cell *matHeaderCellDef>Vehicle No.</th>
+          <td mat-cell *matCellDef="let element">{{ element.vehicleNumber }}</td>
+        </ng-container>
 
-      <ng-container matColumnDef="vehicleNumber">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Number</th>
-        <td mat-cell *matCellDef="let v">{{ v.vehicleNumber }}</td>
-      </ng-container>
+        <!-- Type Column -->
+        <ng-container matColumnDef="vehicleType">
+          <th mat-header-cell *matHeaderCellDef>Type</th>
+          <td mat-cell *matCellDef="let element">{{ element.vehicleType }}</td>
+        </ng-container>
 
-      <ng-container matColumnDef="vehicleType">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
-        <td mat-cell *matCellDef="let v">{{ v.vehicleType }}</td>
-      </ng-container>
+        <!-- Brand Column -->
+        <ng-container matColumnDef="brand">
+          <th mat-header-cell *matHeaderCellDef>Brand</th>
+          <td mat-cell *matCellDef="let element">{{ element.brand }}</td>
+        </ng-container>
 
-      <ng-container matColumnDef="brand">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Brand</th>
-        <td mat-cell *matCellDef="let v">{{ v.brand }}</td>
-      </ng-container>
+        <!-- Color Column -->
+        <ng-container matColumnDef="color">
+          <th mat-header-cell *matHeaderCellDef>Color</th>
+          <td mat-cell *matCellDef="let element">{{ element.color }}</td>
+        </ng-container>
 
-      <ng-container matColumnDef="color">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Color</th>
-        <td mat-cell *matCellDef="let v">{{ v.color }}</td>
-      </ng-container>
+        <!-- Parking Slot Column -->
+        <ng-container matColumnDef="parkingSlot">
+          <th mat-header-cell *matHeaderCellDef>Parking Slot</th>
+          <td mat-cell *matCellDef="let element">{{ element.parkingSlot }}</td>
+        </ng-container>
 
-      <ng-container matColumnDef="residentId">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Resident</th>
-        <td mat-cell *matCellDef="let v">{{ v.residentId }}</td>
-      </ng-container>
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="accent" (click)="openDialog(element)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteVehicle(element.vehicleId)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
 
-      <ng-container matColumnDef="dates">
-        <th mat-header-cell *matHeaderCellDef>Created / Modified</th>
-        <td mat-cell *matCellDef="let v">{{ v.createdDate | date:'short' }} / {{ v.modifiedDate | date:'short' }}</td>
-      </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
 
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef class="text-right">Actions</th>
-        <td mat-cell *matCellDef="let v" class="text-right">
-          <button mat-icon-button color="accent" (click)="openDialog(v)">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-icon-button color="warn" (click)="deleteVehicle(v.id || '')">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-  </div>
+  </mat-card-content>
 </mat-card>

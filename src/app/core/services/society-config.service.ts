@@ -26,6 +26,10 @@ export class SocietyConfigService {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
   }
 
+  getSocietyConfig(): SocietyDetailsResponseDTO | undefined {
+    return this.configData;
+  }
+
   clearSocietyDetails(): void {
       this.configData = undefined;
       localStorage.removeItem(STORAGE_KEY);

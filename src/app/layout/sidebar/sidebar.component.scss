@@ -1,52 +1,28 @@
-.sidebar-container {
+.sidebar-scroll {
   height: 100%;
-  width: 250px;
-  background: linear-gradient(180deg, #1a237e, #283593); // Elegant indigo gradient
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  padding: 16px 0;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
-  font-family: 'Segoe UI', sans-serif;
+  overflow-y: auto;
+  background-color: Wheat; // Dark blue-grey
+  color: white;
 }
 
-.sidebar-title {
-  font-size: 22px;
-  font-weight: 600;
-  text-align: center;
-  margin-bottom: 28px;
-  color: #e8eaf6;
-}
-
-.nav-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.nav-item {
-  display: flex;
-  align-items: center;
-  padding: 14px 22px;
-  cursor: pointer;
-  font-size: 15px;
-  transition: background 0.3s ease-in-out, color 0.2s ease;
-  color: #c5cae9;
-
-  &:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: #fff;
+.sidebar-accordion {
+  .mat-expansion-panel-header {
+    color: #263238;
+    font-weight: 500;
+    font-size: 15px;
   }
 
-  &.active {
-    background-color: #3949ab;
-    font-weight: 600;
-    color: #ffffff;
+  .mat-expansion-panel {
+    background-color: Wheat;
+    margin: 0;
   }
 
-  mat-icon {
-    margin-right: 14px;
-    font-size: 20px;
-    color: #9fa8da;
+  a.mat-list-item {
+    color: white;
+    padding-left: 24px;
+
+    &:hover {
+      background-color: #455a64;
+    }
   }
 }
